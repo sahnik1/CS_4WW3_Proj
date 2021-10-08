@@ -1,0 +1,166 @@
+/* 
+sets up image background so that it is positioned to cover from the center
+both vertical and horizontal device constraints 
+*/
+body {
+    background-image: url('../images/dog-park-landscape.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+    margin-top: 10%;
+}
+
+/*Center page content vertically and horizontally*/
+.main-container {
+    margin: auto;
+    width: 80%;
+    max-width: 900px;
+    max-height: 647px;
+}
+
+/*Keeps page title and icon together*/
+.title-container {
+    display: flex;
+    justify-content: center;
+    max-width: 900px;
+    max-height: 200px;
+}
+
+.title-container img {
+    width: 15vw;
+    height: 15vw;
+    max-width: 148px;
+    max-height: 148px;
+}
+
+.title-container h1 {
+    font-family: 'Mukta', sans-serif;
+    text-align: center;
+    font-size: 1100%;
+    color: white;
+    font-weight: 800;
+}
+
+.tagline p{
+    margin-top: 10%;
+    color: white;
+    text-align: center;
+    font-size: 250%;
+    font-weight: 800;
+}
+
+.search-form {
+    margin-top: 15%;
+    font-family: 'Mukta', sans-serif;
+}
+
+.search-btn{
+    margin-top: 5%;
+    
+}
+
+.user-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 8%;
+    margin-right: 8%
+}
+
+/* Removes default bootstrap colors */
+.btn-primary {
+    background-color: #db9d3d;
+    border-color: #b56810;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+    background-color: #ad751d;
+    border-color: #b56810;
+}
+
+.login-btn {
+    height: 10vw;
+    width: 25vw;
+    font-size: 4vw;
+    font-family: 'Mukta', sans-serif;
+}
+
+.search-btn, .search-input {
+    height: 6.5vh;
+    text-align: center;
+    font-size: 3.5vh;
+}
+
+/* Configures responsiveness for bigger screen sizes: laptops, monitors */
+@media screen and (min-width: 981px) {
+    body {
+        margin-top: 5%;
+        margin-bottom: 10%;
+    }
+
+    .user-container {
+        margin-bottom: 4%;
+    }
+
+    .login-btn {
+        max-width: 215px;
+        max-height: 86px;
+        font-size: 40px;
+    }
+
+    .tagline p {
+        font-size: 400%;
+    }
+    
+    .search-form {
+        display: flex;
+    }
+
+    .search-input {
+        width: 75%;
+        margin-right: 25px;
+        font-size: 25px;
+    }
+
+    .search-btn  {
+        margin-top: 0;
+        width: 175px;
+        float: right;
+    }
+}
+
+/* Configures responsiveness for mobile devices: mobile phones, tablets */
+@media screen and (max-width: 980px){
+    .main-container {
+        min-width: 300px;
+        min-height: 315px;
+    }
+
+    .title-container {
+        min-width: 300px;
+        min-height: 68px;
+    }
+    .title-container h1 {
+        font-size: 18vw;
+        min-width: 222px;
+        min-width: 68px;
+        margin-right: 10px;
+    }
+
+    .title-container img {
+        width: 15vw;
+        height: 15vw;
+        min-width: 42px;
+        min-height: 42px;
+    }
+
+    .tagline p {
+        font-size: 8vw;
+    }
+
+    .login-btn {
+        max-width: 175px;
+        max-height: 70px;
+    }
+}
+
