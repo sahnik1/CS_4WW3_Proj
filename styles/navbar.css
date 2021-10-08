@@ -1,0 +1,16 @@
+.navbar {
+    background-color: #ad751d;
+    width: 100%;
+}
+
+.dog-paw-icon {
+    height: 40px;
+    width: 40px;
+}
+
+.profile-icon {
+    float: left;
+    height: 25px;
+    width: 25px;
+    margin-top: 7px;
+}
