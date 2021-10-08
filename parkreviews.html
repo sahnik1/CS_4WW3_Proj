@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link href="./styles/parkview.css" rel="stylesheet">
+    <head>
+        <meta charset="utf-8">
+        <title>Oakville Dog Park</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <div class="container-fluid mainview" id="main-view">
+            <h2 class="park-title">Oakville Dog Park</h2>
+            <div class="park-img-container">
+                <img class="park-img" src="./images/oakville-dog-park.jpg" alt="Dog Park Picture">
+            </div>
+            <div class="content-container">
+                <ul class="nav nav-pills nav-fill" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a href="parkinfo.html">
+                        <button class="nav-link" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="description" aria-selected="true">Information</button>
+                        </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link active" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">Reviews</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a href="parksubmit.html">
+                            <button class="nav-link" id="submit-reviews-tab" data-bs-toggle="tab" data-bs-target="#submit-reviews" type="button" role="tab" aria-controls="submit-reviews" aria-selected="false">Submit Review</button>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+
+                    <div class="tab-pane active" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                        <div class="card park-reviews">
+                            <div class="card-body review">
+                                <h6 class="card-title">Great Park, Must Visit!!</h6>
+                                <p class="card-subtitle mb-2 text-muted">Samantha Nunez</p>
+                                <div class="rating-container">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                                <p class="description">
+                                        It's really well maintained and run by a group of volunteers and sponsors who help keep the dog park clean and tidy for everybody to benefit.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="card park-reviews">
+                            <div class="card-body review">
+                                <h6 class="card-title">Bad Experience with my puppy :(</h6>
+                                <p class="card-subtitle mb-2 text-muted">John Smith</p>
+                                <div class="rating-container">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star"></i>
+                                    <i class="bi bi-star"></i>
+                                    <i class="bi bi-star"></i>
+                                    <i class="bi bi-star"></i>
+                                </div>
+                                <p class="description">
+                                    The worst dog park in the GTA. If you have small and medium dog don't even bother to go there.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="card park-reviews">
+                            <div class="card-body review">
+                                <h6 class="card-title">Lots of space, but be cautious!</h6>
+                                <p class="card-subtitle mb-2 text-muted">Elon Musk</p>
+                                <div class="rating-container">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star"></i>
+                                    <i class="bi bi-star"></i>
+                                </div>
+                                <p class="description">
+                                    There’s a great amount of space in this dog park. It features a wooded area, agility section, small dogs / puppies section, and of course a general off leash area with park benches & seasonal water.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

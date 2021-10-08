@@ -1,0 +1,222 @@
+body {
+    background-color: #C4E538;
+    font-family: 'Mukta', sans-serif;
+}
+
+.park-title {
+    text-align: center;
+    color: #636e72;
+    font-weight: 800;
+    font-family: 'Mukta', sans-serif;
+}
+
+.park-img-container{
+    margin: auto;
+}
+
+.park-img{
+    margin: auto;
+    display: block;
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
+.bi-star, .bi-star-fill {
+    color: yellow;
+    font-size: x-large;
+}
+
+li.nav-item > button.nav-link.active {
+    background-color: #ad751d;
+}
+
+button.nav-link {
+    color: black;
+}
+
+li.nav-item > a {
+    text-decoration: none;
+}
+
+.rating-container > .bi-star, .rating-container > .bi-star-fill {
+    font-size: medium;
+}
+
+.card.park-reviews {
+    display: inline-flex;
+}
+
+.description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+div.btn-group.custom-group > label.btn.btn-outline-primary {
+    border-color: #ad751d;
+}
+
+label.btn:hover, label.btn-outline-primary:hover {
+    background-color: #ad751d;
+}
+
+div.btn-group.custom-group > .btn-check:checked + .btn-outline-primary {
+    background-color: #ad751d;
+    border-color: #ad751d;
+}
+
+#ratings {
+    width: max-content;
+}
+
+#submit-review-btn {
+    border-color: #ad751d;
+    float: right;
+}
+
+#submit-review-btn:hover {
+    background-color: #ad751d;
+    border-color: #ad751d;
+}
+
+/* Configures responsiveness for bigger screen sizes: laptops, monitors */
+@media screen and (min-width: 981px) {
+
+    .mainview{
+        border-radius: 25px;
+        background-color: #dfe6e9;
+        margin:auto;
+        width: 85%;
+        margin-top: 2%;
+        padding-bottom: 2%;
+        margin-bottom: 2%;
+    }
+
+    .park-title {
+        padding-top: 1%;
+    }
+
+    .park-img-container {
+        width: 20%;
+        border-radius: 25px;
+        margin-top: 1%;
+    }
+
+    .park-img {
+        border-radius: 25px;
+    }
+
+    .content-container {
+        margin-top: 3%;
+    }
+
+    .tab-content {
+        margin-top: 2%;
+    }
+
+    .map-container {
+        margin: auto;
+        float: right;
+        vertical-align: top;
+    }
+
+    .inner-card-container {
+        display: inline-block;
+    }
+
+    .card.park-reviews {
+        width: 30%;
+        vertical-align: top;
+    }
+    
+    .rating-container {
+        width: 40%;
+    }
+
+    #reviews {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    div.review-title-input {
+        width: 50%;
+        display: inline-flex;
+        white-space: nowrap;
+    }
+
+    div.btn-group.custom-group {
+        width: max-content;
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    form.submit-review-form > div.first-group {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    label.title-label {
+        margin-right: 2%;
+    }
+}
+
+/* Configures responsiveness for mobile devices: mobile phones, tablets */
+@media screen and (max-width: 981px) {
+
+    .park-title {
+        padding-top: 5%;
+    }
+
+    .park-img-container {
+        width: 75%;
+        margin-top: 5%;
+        border-radius: 15px;
+    }
+
+    .park-img {
+        border-radius: 15px;
+    }
+
+    .content-container {
+        padding: 3% 1% 1% 1%;
+        background-color: #dfe6e9;
+        margin: 5% auto 2% auto;
+        border-radius: 10px;
+    }
+
+    .tab-content {
+        margin-top: 2%;
+        margin-bottom: 2%;
+    }
+
+    .card-link {
+        margin: auto;
+    }
+
+    .card {
+        margin: 2%;
+    }
+
+    .map-container {
+        margin: auto;
+        width: 100%;
+    }
+
+    .map-img {
+        width: 100%;
+    }
+    
+    .rating-container {
+        width: 50%;
+    }
+
+    #submit-review-btn {
+        width: 30%;
+        margin: auto;
+        margin-top: 5%;
+        display: grid;
+        float: none;
+    }
+}

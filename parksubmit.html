@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link href="./styles/parkview.css" rel="stylesheet">
+    <head>
+        <meta charset="utf-8">
+        <title>Oakville Dog Park</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <div class="container-fluid mainview" id="main-view">
+            <h2 class="park-title">Oakville Dog Park</h2>
+            <div class="park-img-container">
+                <img class="park-img" src="./images/oakville-dog-park.jpg" alt="Dog Park Picture">
+            </div>
+            <div class="content-container">
+                <ul class="nav nav-pills nav-fill" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a href="parkinfo.html">
+                        <button class="nav-link" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="description" aria-selected="true">Information</button>
+                        </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a href="parkreviews.html">
+                        <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">Reviews</button>
+                        </a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link active" id="submit-reviews-tab" data-bs-toggle="tab" data-bs-target="#submit-reviews" type="button" role="tab" aria-controls="submit-reviews" aria-selected="false">Submit Review</button>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+
+                    <div class="tab-pane active" id="submit-reviews" role="tabpanel" aria-labelledby="submit-reviews-tab">
+                        <div class="card submit-review">
+                            <div class="card-body">
+                                <h5 class="card-title">Every Review Helps the Community!</h5>
+                                <br>
+                                <form class="submit-review-form">
+                                    <div class="first-group">
+                                    <div class="review-title-input">
+                                    <label for="review-title" class="form-label title-label">Review Title:</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" id="review-title" aria-describedby="basic-addon3">
+                                    </div>
+                                    </div>
+
+                                    <div class="btn-group custom-group" role="group" aria-label="Basic radio toggle button group">
+                                        <input type="radio" class="btn-check" name="btnradio" id="showmyname" autocomplete="off" checked>
+                                        <label class="btn btn-outline-primary" for="showmyname">Show My Name</label>
+                                      
+                                        <input type="radio" class="btn-check" name="btnradio" id="anonymous" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="anonymous">Anonymous Review</label>
+                                    </div>
+                                    </div>
+                                    <br>
+                                    <label class="form-label">Description:</label>
+                                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                    <br>
+                                    <label for="ratings" class="form-label title-label">Rating:</label>
+                                    <div class="btn-group custom-group" id="ratings" role="group" aria-label="Basic radio toggle button group">
+                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="btnradio1">1</label>
+                                      
+                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="btnradio2">2</label>
+
+                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" checked>
+                                        <label class="btn btn-outline-primary" for="btnradio3">3</label>
+
+                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="btnradio4">4</label>
+
+                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="btnradio5">5</label>
+                                    </div>
+                                    
+                                    <button id="submit-review-btn" type="button" class="btn btn-outline-primary">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
