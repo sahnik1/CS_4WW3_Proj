@@ -1,13 +1,16 @@
+/* Gives the table a more centered look */
 .table-container {
     margin-top: 2%;
     margin-left: 2%;
     margin-right: 2%;
 }
 
+/* keeps column width consistent and prevents it from exceeding body width */
 table {
     table-layout: fixed;
 }
 
+/* !important used to override bootstrap's default styling which in this case had priority */
 .row-link {
     background-color: #ad751d !important;
     border-color: #b56810 !important;
@@ -17,6 +20,7 @@ table {
     font-weight: bold;
 }
 
+/* Gives the map a more centered look and prevents it from being scrollable, with JS and map views it will be scrollable within its constraints */
 .map-container {
     margin-top: 2%;
     margin-left: 2%;
@@ -26,6 +30,7 @@ table {
     height: 100%;
 }
 
+/* constraints for the map-image itself to it does not exceeds its container's  boundaries */
 .map-image {
     width: auto;
     height: auto;

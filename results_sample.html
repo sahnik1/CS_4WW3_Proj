@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- meta tags specifying charset, and user visible area -->
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paw-Go Results</title>
+    <title>Paw Go - Results</title>
+    <!-- importing style sheets, ours and bootstrap's -->
     <link rel="stylesheet" href="styles/reset.css">
     <link rel="stylesheet" href="styles/navbar.css">
     <link rel="stylesheet" href="styles/results.css">
@@ -54,10 +55,14 @@
         </div>
       </nav>
     </header>
+    <!-- Container for the map that is centered vertically in the page view, contains the user's location centered in the map view -->
+    <!-- while highlighting all of the dog parks near the user using a custom indicator -->
     <div class="map-container text-center">
       <img class="map-image rounded mx-auto d-block" src="images/map.png" alt="picture of map with icons marking dog parks">
     </div>
+    <!-- Table containing the main details of the closest dog parks to the user, they will be able to sort by distance/rating/park name in the future with Javascript -->
     <div class="table-container">
+      <!-- Table-hover allows users on desktop to know which table they are mousing over -->
       <table class="table table-hover">
         <thead>
           <tr class="table-dark">
@@ -68,6 +73,7 @@
           </tr>
         </thead>
         <tbody>
+          <!-- Each table row contains an anchor tag behaving as a button, in order to redirect users to that specific object's page -->
           <tr>
             <td class="distance-cell">28.1 km</td>
             <td>Ajax Dog Park</td>

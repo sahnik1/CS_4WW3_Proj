@@ -11,7 +11,7 @@ body {
     height: 100vh;
 }
 
-/*Center page content vertically and horizontally*/
+/* Center page content vertically and horizontally */
 .main-container {
     margin: auto;
     width: 80%;
@@ -20,7 +20,7 @@ body {
     margin-top: 10%;
 }
 
-/*Keeps page title and icon together*/
+/* Keeps page title and icon together */
 .title-container {
     display: flex;
     justify-content: center;
@@ -28,6 +28,7 @@ body {
     max-height: 200px;
 }
 
+/* Prevents img from exceeding a specific size ratio, keeps it responsive across different screen sizes */
 .title-container img {
     width: 15vw;
     height: 15vw;
@@ -35,6 +36,7 @@ body {
     max-height: 148px;
 }
 
+/* font-size is 1100% as percentages tend to be responsive across various screens, font-weight is set to 800 to use the imported google-font of weight 800 */
 .title-container h1 {
     font-family: 'Mukta', sans-serif;
     text-align: center;
@@ -43,13 +45,16 @@ body {
     font-weight: 800;
 }
 
+/* margin added to separate from the main page title */
 .tagline p{
     margin-top: 10%;
     color: white;
     text-align: center;
     font-size: 250%;
     font-weight: 800;
+    font-family: 'Mukta', sans-serif;
 }
+
 
 .search-form {
     margin-top: 15%;
@@ -58,13 +63,6 @@ body {
 
 .search-btn{
     margin-top: 5%;
-}
-
-.user-container {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 8%;
-    margin-right: 8%
 }
 
 /* Removes default bootstrap colors */
@@ -96,6 +94,7 @@ body {
         font-size: 400%;
     }
     
+    /* switches to display flex to place the main search bar and button beside each other */
     .search-form {
         display: flex;
     }
@@ -106,6 +105,7 @@ body {
         font-size: 25px;
     }
 
+    /* float right to place the search button to the right of the search bar */
     .search-btn  {
         margin-top: 0;
         width: 175px;
@@ -114,6 +114,7 @@ body {
 }
 
 /* Configures responsiveness for mobile devices: mobile phones, tablets */
+/* min-width's set to keep the page responsive and looking in order for extremely low-width screens */
 @media screen and (max-width: 982px){
     .main-container {
         min-width: 300px;
@@ -143,6 +144,7 @@ body {
         font-size: 8vw;
     }
 
+    /* override footer height as the main page requires a specific footer height */
     footer {
         background-color: white;
         width: 100%;
