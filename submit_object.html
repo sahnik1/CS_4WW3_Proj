@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="styles/signup.css">
     <link rel="stylesheet" href="styles/navbar.css">
     <link rel="stylesheet" href="styles/footer.css">
-    <head>
         <meta charset="utf-8">
         <title>Submit Park</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-    </head>
+  </head>
     <body>
         <header>
           <nav class="navbar navbar-expand-lg navbar-dark">
@@ -63,6 +63,12 @@
                             </select>
                           </div>
                         </div>
+
+                        <div class="form-group form-field">
+                          <label class="label-field">Description</label>
+                          <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                        </div>
+
                         <div class="form-group form-field">
                           <label class="label-field" for="address-input">Address</label>
                           <input type="text" class="form-control" id="address-input" placeholder="1234 Main St">
@@ -92,8 +98,8 @@
                             </select>
                           </div>
                           <div class="form-group form-field">
-                            <label class="label-field" for="postal-code-input">Postal Code</label>
-                            <input type="text" class="form-control" id="postal-code-input" placeholder="M5T 6U7">
+                            <label class="label-field" for="upload-input">Image Upload</label>
+                            <input type="file" class="form-control" id="upload-input">
                           </div>
                         </div>
                 </form>
