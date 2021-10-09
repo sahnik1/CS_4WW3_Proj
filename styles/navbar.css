@@ -1,17 +1,19 @@
+/* nav should always cover 100% of the html body, background color and font to stay consistent across different views*/
 nav {
-    position: relative;
     background-color: #ad751d;
     width: 100%;
-    font-family: 'Mukta', sans-serif;
     font-size: 20px;
+    font-family: sans-serif;
 }
 
+/*dog-paw icon size and margin to separate it from the menu items in the navbar*/
 .dog-paw-icon {
     height: 50px;
     width: 50px;
     margin-right: 10px;
 }
 
+/* float the profile icon to the left to place it beside Login/Register */
 .profile-icon {
     float: left;
     height: 25px;

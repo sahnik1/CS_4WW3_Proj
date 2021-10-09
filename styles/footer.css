@@ -1,5 +1,8 @@
+/* footer width should always be that of the whole html body's width, and background is white to contrast it from other content */
 footer {
     background-color: white;
     width: 100%;
+    /* Makes the height responsive with different screen sizes */
     height: 20%;
+    font-family: sans-serif;
 }
