@@ -2,13 +2,49 @@
 <html lang="en">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-    <link href="./styles/parkview.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/parkview.css">
+    <link rel="stylesheet" href="styles/navbar.css">
+    <link rel="stylesheet" href="styles/footer.css">
     <head>
         <meta charset="utf-8">
         <title>Oakville Dog Park</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <div class="container-fluid">
+                    <img class="dog-paw-icon" src="images/dog-paw-icon.png" alt="Dog Paw Icon">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                        <ul class="navbar-nav flex-fill">
+                            <li class="nav-item flex-fill">
+                                <a class="nav-link" aria-current="page" href="search.html">Home</a>
+                            </li>
+                            <li class="nav-item flex-fill">
+                                <a class="nav-link active" href="results_sample.html">Results</a>
+                            </li>
+                            <li class="nav-item flex-fill">
+                                <a class="nav-link" href="submit_object.html">Submit Park</a>
+                            </li>
+                            <li class="nav-item flex-fill">
+                                <div class="profile">
+                                    <img class="profile-icon" src="images/user.png" alt="User/Profile icon">
+                                    <a class="nav-link" href="user_registration.html">Login / Register</a>
+                                </div>
+                            </li>
+                        </ul>
+                        <form class="d-flex flex-fill" action="results_sample.html">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-warning" type="submit">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
         <div class="container-fluid mainview" id="main-view">
             <h2 class="park-title">Oakville Dog Park</h2>
             <div class="park-img-container">
@@ -17,12 +53,12 @@
             <div class="content-container">
                 <ul class="nav nav-pills nav-fill" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <a href="parkinfo.html">
+                        <a href="object_page.html">
                         <button class="nav-link" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="description" aria-selected="true">Information</button>
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a href="parkreviews.html">
+                        <a href="object_reviews.html">
                         <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">Reviews</button>
                         </a>
                     </li>
@@ -59,6 +95,10 @@
                                     <label class="form-label">Description:</label>
                                     <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
                                     <br>
+                                    
+                                </form>
+
+                                <form class="submit-review-form">
                                     <label for="ratings" class="form-label title-label">Rating:</label>
                                     <div class="btn-group custom-group" id="ratings" role="group" aria-label="Basic radio toggle button group">
                                         <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
@@ -76,9 +116,11 @@
                                         <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off">
                                         <label class="btn btn-outline-primary" for="btnradio5">5</label>
                                     </div>
-                                    
-                                    <button id="submit-review-btn" type="button" class="btn btn-outline-primary">Submit</button>
                                 </form>
+
+                                <a href="object_reviews.html">
+                                    <button id="submit-review-btn" type="button" class="btn btn-outline-primary">Submit</button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -86,5 +128,24 @@
                 </div>
             </div>
         </div>
+
+        <footer class="py-3">
+            <ul class="nav justify-content-center border-bottom pb-2 mb-3">
+                <li class="nav-item">
+                    <a href="search.html" class="nav-link px-2 text-muted">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="results_sample.html" class="nav-link px-2 text-muted">Results</a>
+                </li>
+                <li class="nav-item">
+                    <a href="submit_object.html" class="nav-link px-2 text-muted">Submit Park</a>
+                </li>
+                <li class="nav-item">
+                    <a href="user_registration.html" class="nav-link px-2 text-muted">Login/Register</a>
+                </li>
+            </ul>
+            <p class="text-center text-muted">&copy; Copyright 2021, Paw Go. All  Rights Reserved</p>
+        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
     </body>
 </html>

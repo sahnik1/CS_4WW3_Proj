@@ -1,0 +1,90 @@
+body {
+    font-family: 'Mukta', sans-serif;
+}
+
+.signup-title {
+    text-align: center;
+    font-weight: 800;
+    font-family: 'Mukta', sans-serif;
+}
+
+#submit-signup-form {
+    border-color: #ffc107;
+    background-color: #ffc107;
+    display: grid;
+    float: none;
+    margin: auto;
+    font-weight: 700;
+}
+
+label.label-field {
+    color: white;
+}
+
+/* Configures responsiveness for bigger screen sizes: laptops, monitors */
+@media screen and (min-width: 981px) {
+
+    .signup-title {
+        color: white;
+    }
+
+    .mainview{
+        border-radius: 25px;
+        background-color: #ad751d;
+        margin:auto;
+        width: 85%;
+        margin-top: 2%;
+        padding-bottom: 2%;
+        margin-bottom: 2%;
+    }
+
+    .signup-title {
+        padding-top: 1%;
+    }
+
+    div.form-group.form-field {
+        width: 100%;
+        padding: 2%;
+        display: inline-flex;
+    }
+    
+    div.form-row.multi-input-row {
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    label.label-field {
+        margin-right: 2%;
+        white-space: nowrap;
+    }
+    
+}
+
+/* Configures responsiveness for mobile devices: mobile phones, tablets */
+@media screen and (max-width: 981px) {
+
+    .signup-title {
+        color: #636e72;
+        padding-top: 5%;
+        font-size: x-large;
+    }
+
+    .card {
+        margin: 2%;
+    }
+
+    form.signup-form {
+        padding: 2%;
+    }
+
+    .form-group {
+        margin: 5% 0 5% 0;
+    }
+    
+    .content-container {
+        padding: 3% 1% 1% 1%;
+        background-color: #ad751d;
+        margin: 5% auto 2% auto;
+        border-radius: 10px;
+    }
+}
