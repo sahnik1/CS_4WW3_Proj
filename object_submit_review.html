@@ -53,12 +53,17 @@
         </div>
       </nav>
     </header>
+    <!-- Main view container, contains all of the main content for the page -->
     <div class="container-fluid mainview" id="main-view">
+      <!-- Title of view, shows which park information currently looking at -->
       <h2 class="park-title">Oakville Dog Park</h2>
+      <!-- Container for resizing the dog park image for mobile/desktop -->
       <div class="park-img-container">
         <img class="park-img" src="./images/oakville-dog-park.jpg" alt="Dog Park Picture">
       </div>
+      <!-- Another container, this ensures that in the mobile view, we see a different view -->
       <div class="content-container">
+        <!-- Tabbed navs for switching between content related to the dog park -->
         <ul class="nav nav-pills nav-fill" id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
             <form action="object_page.html">
@@ -74,20 +79,30 @@
             <button class="nav-link active" id="submit-reviews-tab" data-bs-toggle="tab" data-bs-target="#submit-reviews" type="submit" role="tab" aria-selected="false">Submit Review</button>
           </li>
         </ul>
+        <!-- This container is referred to by the tab that is selected above -->
+        <!-- Since Js is not allowed in Assignment 1, we broke up the links into separate pages -->
         <div class="tab-content">
           <div class="tab-pane active" id="submit-reviews" role="tabpanel" aria-labelledby="submit-reviews-tab">
+            <!-- Using Bootstrap Card element for body of the form and text in this view -->
             <div class="card submit-review">
               <div class="card-body">
+                <!-- Title for page in the body letting the user know there are on the submit reviews page -->
                 <h5 class="card-title">Every Review Helps the Community!</h5>
                 <br>
+                <!-- Form Element to record the user's submit review request -->
+                <!-- Form is tied to the submit button, for now in Assignment 1 they are not connected as we cannot use Js -->
                 <form class="submit-review-form">
+                  <!-- Inputs broken up into groups to allow for placing elements inline on desktop -->
                   <div class="first-group">
+                    <!-- Each input has a unique name for customizing css for its size -->
                     <div class="review-title-input">
+                    <!-- Each label uses the same CSS styling -->
                       <label for="review-title" class="form-label title-label">Review Title:</label>
                       <div class="input-group mb-3">
                         <input type="text" class="form-control" id="review-title">
                       </div>
                     </div>
+                    <!-- Checkboxes resembling buttons to allow user to choose level of anonymity for review to be submitted -->
                     <div class="btn-group custom-group" role="group" aria-label="Basic radio toggle button group">
                       <input type="radio" class="btn-check" name="btnradio" id="showmyname"  checked>
                       <label class="btn btn-outline-primary" for="showmyname">Show My Name</label>
@@ -96,10 +111,13 @@
                     </div>
                   </div>
                   <br>
+                  <!-- Big TextArea input type to allow user to leave detailed review description -->
                   <label class="form-label">Description:</label>
                   <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
                   <br>
                 </form>
+                <!-- Lastly, this form is to allow user to leave a Rating as a part of their review -->
+                <!-- Similar styling to "Anonymous" selection above, checkboxes resembling button used from Bootstrap -->
                 <form class="submit-review-form">
                   <label class="form-label title-label">Rating:</label>
                   <div class="btn-group custom-group" id="ratings" role="group" aria-label="Basic radio toggle button group">
@@ -115,6 +133,8 @@
                     <label class="btn btn-outline-primary" for="btnradio5">5</label>
                   </div>
                 </form>
+                <!-- Finally, Submit Button used to submit form -->
+                <!-- Note due to assignment 1 JS requirements, this is in a separate form to navigate to a different view -->
                 <form action="object_reviews.html">
                   <button id="submit-review-btn" type="submit" class="btn btn-outline-primary">Submit</button>
                 </form>

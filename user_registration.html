@@ -53,29 +53,39 @@
         </div>
       </nav>
     </header>
+    <!-- Main view container, contains all of the main content for the page -->
     <div class="container-fluid mainview" id="main-view">
+      <!-- Title of view, shows user they are are User Registration Page -->
       <h2 class="signup-title">Sign Up for Access!</h2>
+      <!-- Another container, this ensures that in the mobile view, we see a different view -->
       <div class="content-container">
+        <!-- Signup Page Form Element to record user's signup request -->
         <form class="signup-form" id="signup-form" action="./index.html">
+          <!-- Container to allow for different view on desktop vs mobile -->
           <div class="form-row multi-input-row">
+            <!-- Email HTML5 Field for signup -->
             <div class="form-group form-field">
               <label class="label-field" for="email-input">Email</label>
               <input type="email" class="form-control" id="email-input" placeholder="email@gmail.com">
             </div>
+            <!-- Password HTML5 Field for signup -->
             <div class="form-group form-field">
               <label class="label-field" for="password-input">Password</label>
               <input type="password" class="form-control" id="password-input" placeholder="**********">
             </div>
           </div>
+          <!-- Address HTML5 Field for signup -->
           <div class="form-group form-field">
             <label class="label-field" for="address-input">Address</label>
             <input type="text" class="form-control" id="address-input" placeholder="1234 Main St">
           </div>
+          <!-- Phone Number HTML5 Field for signup -->
           <div class="form-row multi-input-row">
             <div class="form-group form-field">
               <label class="label-field" for="tel-input">Phone Number</label>
               <input type="tel" class="form-control" id="tel-input" placeholder="905-905-9050">
             </div>
+            <!-- Province Selection Field for signup -->
             <div class="form-group form-field">
               <label class="label-field" for="province-input">Province</label>
               <select id="province-input" class="form-control">
@@ -95,12 +105,14 @@
                 <option>Nunavut</option>
               </select>
             </div>
+            <!-- Date HTML5 Field for signup (Date of Birth) -->
             <div class="form-group form-field">
               <label class="label-field" for="dob-input">Date of Birth</label>
               <input type="date" class="form-control" id="dob-input">
             </div>
           </div>
         </form>
+        <!-- Submit button linked to Form Element above, For Assignment 1 this leads back to Home Page -->
         <button type="submit" form="signup-form" id="submit-signup-form" class="btn btn-primary">Sign Up</button>
       </div>
     </div>

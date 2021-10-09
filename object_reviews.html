@@ -53,12 +53,17 @@
         </div>
       </nav>
     </header>
+    <!-- Main view container, contains all of the main content for the page -->
     <div class="container-fluid mainview" id="main-view">
+      <!-- Title of view, shows which park information currently looking at -->
       <h2 class="park-title">Oakville Dog Park</h2>
+      <!-- Container for resizing the dog park image for mobile/desktop -->
       <div class="park-img-container">
         <img class="park-img" src="./images/oakville-dog-park.jpg" alt="Dog Park Picture">
       </div>
+      <!-- Another container, this ensures that in the mobile view, we see a different containerized view -->
       <div class="content-container">
+        <!-- Tabbed navs for switching between content related to the dog park -->
         <ul class="nav nav-pills nav-fill" id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
             <form action="object_page.html">
@@ -74,12 +79,19 @@
             </form>
           </li>
         </ul>
+        <!-- This container is referred to by the tab that is selected above -->
+        <!-- Since Js is not allowed in Assignment 1, we broke up the links into separate pages -->
         <div class="tab-content">
           <div class="tab-pane active" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+            <!-- Each Review is put inside its own Card -->
+            <!-- Each of these cards are then turned into flex containers on desktop -->
             <div class="card park-reviews">
               <div class="card-body review">
+                <!-- Each Review has a title -->
                 <h6 class="card-title">Great Park, Must Visit!!</h6>
+                <!-- Each Review has the author name or if the user chooses "Anonymous" -->
                 <p class="card-subtitle mb-2 text-muted">Samantha Nunez</p>
+                <!-- Each Review has an inline container for the ratings the user provided -->
                 <div class="rating-container">
                   <i class="bi bi-star-fill"></i>
                   <i class="bi bi-star-fill"></i>
@@ -87,6 +99,7 @@
                   <i class="bi bi-star-fill"></i>
                   <i class="bi bi-star-fill"></i>
                 </div>
+                <!-- Each Review has the description the user chose to write for their review -->
                 <p class="description">
                   It's really well maintained and run by a group of volunteers and sponsors who help keep the dog park clean and tidy for everybody to benefit.
                 </p>

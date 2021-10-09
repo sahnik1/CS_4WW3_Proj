@@ -53,12 +53,17 @@
         </div>
       </nav>
     </header>
+    <!-- Main view container, contains all of the main content for the page -->
     <div class="container-fluid mainview" id="main-view">
+        <!-- Title of view, shows which park information currently looking at -->
       <h2 class="park-title">Oakville Dog Park</h2>
+      <!-- Container for resizing the dog park image for mobile/desktop -->
       <div class="park-img-container">
         <img class="park-img" src="./images/oakville-dog-park.jpg" alt="Dog Park Picture">
       </div>
+      <!-- Another container, this ensures that in the mobile view, we see a different view -->
       <div class="content-container">
+        <!-- Tabbed navs for switching between content related to the dog park -->
         <ul class="nav nav-pills nav-fill" id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
             <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="description" aria-selected="true">Information</button>
@@ -74,15 +79,23 @@
             </form>
           </li>
         </ul>
+        <!-- This container is referred to by the tab that is selected above -->
+        <!-- Since Js is not allowed in Assignment 1, we broke up the links into separate pages -->
         <div class="tab-content">
+            <!-- This shows that the current tab content is active and therefore displayed -->
           <div class="tab-pane active" id="description" role="tabpanel" aria-labelledby="description-tab">
+              <!-- Using Bootstrap Card element here to encompass the park details and map, also allows responsive design -->
             <div class="card">
               <div class="card-body">
+                  <!-- Inner container to separat block of text from the map image -->
                 <div class="inner-card-container">
+                  <!-- Dog Park Title as shown in Description -->
                   <h4 class="card-title">Oakville Dog Park</h4>
                   <br>
+                  <!-- Dog Park Address as shown in Description -->
                   <h5 class="card-subtitle mb-2 text-muted">230 Random St, Oakville, ON L67M35</h5>
                   <br>
+                  <!-- Span element to show inline the average rating using star icons in Bootstrap -->
                   <span>
                   Average Rating:
                   <i class="bi bi-star-fill"></i>
@@ -93,6 +106,7 @@
                   </span>
                   <br>
                 </div>
+                  <!-- Container to separate the map from the text and allow responsive resizing -->
                 <div class="map-container">
                   <img class="map-img" src="./images/map-img.png" alt="Map View Showing Park">
                 </div>
