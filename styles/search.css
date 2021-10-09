@@ -8,7 +8,7 @@ body {
     background-position: center center;
     background-attachment: fixed;
     background-size: cover;
-    margin-top: 10%;
+    height: 100vh;
 }
 
 /*Center page content vertically and horizontally*/
@@ -17,6 +17,7 @@ body {
     width: 80%;
     max-width: 900px;
     max-height: 647px;
+    margin-top: 10%;
 }
 
 /*Keeps page title and icon together*/
@@ -57,7 +58,6 @@ body {
 
 .search-btn{
     margin-top: 5%;
-    
 }
 
 .user-container {
@@ -78,34 +78,18 @@ body {
     border-color: #b56810;
 }
 
-.login-btn {
-    height: 10vw;
-    width: 25vw;
-    font-size: 4vw;
-    font-family: 'Mukta', sans-serif;
-}
-
 .search-btn, .search-input {
     height: 6.5vh;
     text-align: center;
     font-size: 3.5vh;
 }
 
+
 /* Configures responsiveness for bigger screen sizes: laptops, monitors */
-@media screen and (min-width: 981px) {
-    body {
+@media screen and (min-width: 983px) {
+    .main-container {
         margin-top: 5%;
-        margin-bottom: 10%;
-    }
-
-    .user-container {
-        margin-bottom: 4%;
-    }
-
-    .login-btn {
-        max-width: 215px;
-        max-height: 86px;
-        font-size: 40px;
+        margin-bottom: 5%;
     }
 
     .tagline p {
@@ -130,7 +114,7 @@ body {
 }
 
 /* Configures responsiveness for mobile devices: mobile phones, tablets */
-@media screen and (max-width: 980px){
+@media screen and (max-width: 982px){
     .main-container {
         min-width: 300px;
         min-height: 315px;
@@ -156,11 +140,6 @@ body {
 
     .tagline p {
         font-size: 8vw;
-    }
-
-    .login-btn {
-        max-width: 175px;
-        max-height: 70px;
     }
 }
 
