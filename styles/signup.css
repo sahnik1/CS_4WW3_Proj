@@ -1,13 +1,16 @@
+/* Consistent Font for body */
 body {
     font-family: 'Mukta', sans-serif;
 }
 
+/* Sets Alignment and Size for Signup/Registration Page Titles */
 .signup-title {
     text-align: center;
     font-weight: 800;
     font-family: 'Mukta', sans-serif;
 }
 
+/* Styling to change default Bootstrap Color of Button's Border to match Website Color Scheme */
 #submit-signup-form {
     border-color: #ffc107;
     background-color: #ffc107;
@@ -17,6 +20,7 @@ body {
     font-weight: 700;
 }
 
+/* Styling to change default Bootstrap Color of label to match Website Color Scheme */
 label.label-field {
     color: white;
 }
@@ -24,10 +28,12 @@ label.label-field {
 /* Configures responsiveness for bigger screen sizes: laptops, monitors */
 @media screen and (min-width: 981px) {
 
+    /* Styling to change default Color of Text to match Website Color Scheme */
     .signup-title {
         color: white;
     }
 
+    /* Different Sizing of MainView for desktops, spacing at top/bottom as Desktop screen is big */
     .mainview{
         border-radius: 25px;
         background-color: #ad751d;
@@ -38,21 +44,25 @@ label.label-field {
         margin-bottom: 2%;
     }
 
+    /* Desktop Padding for the Signup/Registration Page Title */
     .signup-title {
         padding-top: 1%;
     }
 
+    /* Allows Multiple inputs to be placed inline for Submit Review Page */
     div.form-group.form-field {
         width: 100%;
         padding: 2%;
         display: inline-flex;
     }
     
+    /* Wraps set of inputs, spaces them dynamically based on Desktop screen size */
     div.form-row.multi-input-row {
         display: flex;
         justify-content: space-between;
     }
     
+    /* Increased margin and single line for labels on Submit Review Page */
     label.label-field {
         margin-right: 2%;
         white-space: nowrap;
@@ -63,24 +73,29 @@ label.label-field {
 /* Configures responsiveness for mobile devices: mobile phones, tablets */
 @media screen and (max-width: 981px) {
 
+    /* Styling to change default Color of Text to match Website Color Scheme */
     .signup-title {
         color: #636e72;
         padding-top: 5%;
         font-size: x-large;
     }
 
+    /* Different Margin of Card for mobile as mobile screen is small */
     .card {
         margin: 2%;
     }
 
+    /* Different Padding of Signup/registration forms for mobile as mobile screen is small */
     form.signup-form {
         padding: 2%;
     }
 
+    /* Different Margin of Signup/registration forms for mobile as mobile screen is small */
     .form-group {
         margin: 5% 0 5% 0;
     }
     
+    /* Mobile Only Styling, Allows for a container wrapping all page content */
     .content-container {
         padding: 3% 1% 1% 1%;
         background-color: #ad751d;

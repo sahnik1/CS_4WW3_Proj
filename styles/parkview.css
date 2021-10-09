@@ -1,7 +1,9 @@
+/* Consistent Font for body */
 body {
     font-family: 'Mukta', sans-serif;
 }
 
+/* Sets Alignment and Size for Park Name Title */
 .park-title {
     text-align: center;
     color: #636e72;
@@ -9,10 +11,12 @@ body {
     font-family: 'Mukta', sans-serif;
 }
 
+/* Container which wraps Park Image, Sets Image to center of page regardless of screen size */
 .park-img-container{
     margin: auto;
 }
 
+/* Styling for image itself, sets a shadow and gives the image max width to fill its container */
 .park-img{
     margin: auto;
     display: block;
@@ -20,31 +24,38 @@ body {
     box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
 
+/* Styling for size and color of the Rating Stars across several views */
 .bi-star, .bi-star-fill {
     color: yellow;
     font-size: x-large;
 }
 
+/* Styling to change default Bootstrap Color of Button to match Website Color Scheme */
 li.nav-item > button.nav-link.active {
     background-color: #ad751d;
 }
 
+/* Styling to change default Bootstrap Colour of Button's Text to match Website Color Scheme */
 button.nav-link {
     color: black;
 }
 
+/* Styling to remove underline for NavItem placed by default in Bootstrap */
 li.nav-item > a {
     text-decoration: none;
 }
 
+/* Styling to change size of the star ratings within the reviews card elements */
 .rating-container > .bi-star, .rating-container > .bi-star-fill {
     font-size: medium;
 }
 
+/* Allows Review Cards to be placed inline if space permits */
 .card.park-reviews {
     display: inline-flex;
 }
 
+/* Consistent Size for each Review Card, Overflow is capped to 3 lines */
 .description {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -53,28 +64,34 @@ li.nav-item > a {
     -webkit-box-orient: vertical;
 }
 
+/* Styling to change default Bootstrap Color of Button's Border to match Website Color Scheme */
 div.btn-group.custom-group > label.btn.btn-outline-primary {
     border-color: #ad751d;
 }
 
+/* Styling to change default Bootstrap Color of Button on Hover to match Website Color Scheme */
 label.btn:hover, label.btn-outline-primary:hover {
     background-color: #ad751d;
 }
 
+/* Styling to change default Bootstrap Color of Submit Review Checkbox Buttons to match Website Color Scheme */
 div.btn-group.custom-group > .btn-check:checked + .btn-outline-primary {
     background-color: #ad751d;
     border-color: #ad751d;
 }
 
+/* Styling to change size of rating box to take up the minimum amount of space needed */
 #ratings {
     width: max-content;
 }
 
+/* Styling to change default Bootstrap Color of Submit Button for Submit Review Page to match Website Color Scheme */
 #submit-review-btn {
     border-color: #ad751d;
     float: right;
 }
 
+/* Styling to change default Bootstrap Color for Hover of Submit Button for Submit Review Page to match Website Color Scheme */
 #submit-review-btn:hover {
     background-color: #ad751d;
     border-color: #ad751d;
@@ -83,6 +100,7 @@ div.btn-group.custom-group > .btn-check:checked + .btn-outline-primary {
 /* Configures responsiveness for bigger screen sizes: laptops, monitors */
 @media screen and (min-width: 981px) {
 
+    /* Different Sizing of MainView for desktops, spacing at left/right ends as Desktop screen is big */
     .mainview{
         border-radius: 25px;
         background-color: #dfe6e9;
@@ -93,69 +111,83 @@ div.btn-group.custom-group > .btn-check:checked + .btn-outline-primary {
         margin-bottom: 2%;
     }
 
+    /* Desktop Padding for the Park Name Title */
     .park-title {
         padding-top: 1%;
     }
 
+    /* Desktop Styling for Container wrapping park image for page */
     .park-img-container {
         width: 20%;
         border-radius: 25px;
         margin-top: 1%;
     }
 
+    /* Desktop Styling, bigger border-radius than mobile for park image */
     .park-img {
         border-radius: 25px;
     }
 
+    /* Different Margin of MainView for desktops as Desktop screen is big */
     .content-container {
         margin-top: 3%;
     }
 
+    /* Different Margin of Tab Contents for desktops as Desktop screen is big */
     .tab-content {
         margin-top: 2%;
     }
 
+    /* Different Placement of Map for desktops as Desktop screen is big */
     .map-container {
         margin: auto;
         float: right;
         vertical-align: top;
     }
 
+    /* Allows Elements to be placed inline if space permits on Desktop */
     .inner-card-container {
         display: inline-block;
     }
 
+    /* Custom Desktop Styling for Cards holding Reviews */
     .card.park-reviews {
         width: 30%;
         vertical-align: top;
     }
     
+    /* Larger Container for showing Star Ratings on Desktop */
     .rating-container {
         width: 40%;
     }
 
+    /* Custom to Desktop, Place Review Cards inline evenly on screen */
     #reviews {
         display: flex;
         justify-content: space-around;
     }
 
+    /* Allows Review Cards to placed inline to each other */
     div.review-title-input {
         width: 50%;
         display: inline-flex;
         white-space: nowrap;
     }
 
+    /* Allows Multiple inputs to be placed inline for Submit Review Page */
     div.btn-group.custom-group {
         width: max-content;
         display: inline-block;
         vertical-align: top;
     }
 
+    /* Wraps First set of inputs, spaces them dynamically based on Desktop screen size */
     form.submit-review-form > div.first-group {
         display: flex;
         justify-content: space-between;
     }
 
+    /* Increased margin for labels on Submit Review Page */
     label.title-label {
         margin-right: 2%;
     }
@@ -164,20 +196,24 @@ div.btn-group.custom-group > .btn-check:checked + .btn-outline-primary {
 /* Configures responsiveness for mobile devices: mobile phones, tablets */
 @media screen and (max-width: 981px) {
 
+    /* Mobile Padding for the Park Name Title */
     .park-title {
         padding-top: 5%;
     }
 
+    /* Mobile Styling for Container wrapping park image for page */
     .park-img-container {
         width: 75%;
         margin-top: 5%;
         border-radius: 15px;
     }
 
+    /* Mobile Styling, bigger border-radius than Desktop for park image */
     .park-img {
         border-radius: 15px;
     }
 
+    /* Mobile Only Styling, Allows for a container wrapping tabs and tab content */
     .content-container {
         padding: 3% 1% 1% 1%;
         background-color: #dfe6e9;
@@ -185,32 +221,34 @@ div.btn-group.custom-group > .btn-check:checked + .btn-outline-primary {
         border-radius: 10px;
     }
 
+    /* Different Margin of Tab Contents for mobile as mobile screen is small */
     .tab-content {
         margin-top: 2%;
         margin-bottom: 2%;
     }
 
-    .card-link {
-        margin: auto;
-    }
-
+    /* Different Margin of Card for mobile as mobile screen is small */
     .card {
         margin: 2%;
     }
 
+    /* Different Margin of Container holding Map for mobile as mobile screen is small */
     .map-container {
         margin: auto;
         width: 100%;
     }
 
+    /* Map fills Parent Container to max to fit within width of mobile */
     .map-img {
         width: 100%;
     }
     
+    /* Increased Size of Container holding ratings as Mobile screen is small */
     .rating-container {
         width: 50%;
     }
 
+    /* Increased Size of Submit Button for Submit Reviews Page as Mobile screen is small */
     #submit-review-btn {
         width: 30%;
         margin: auto;
