@@ -65,6 +65,11 @@ body {
     margin-top: 5%;
 }
 
+#rating-search {
+    text-align: center;
+    font-size:small;
+}
+
 /* Removes default bootstrap colors */
 .btn-primary {
     background-color: #db9d3d;
@@ -111,6 +116,12 @@ body {
         width: 175px;
         float: right;
     }
+
+    #rating-search {
+        margin-right: 2%;
+        width: 15%;
+        text-align: center;
+    }
 }
 
 /* Configures responsiveness for mobile devices: mobile phones, tablets */
@@ -151,6 +162,12 @@ body {
         height: 30% !important;
         left: 0px;
         right: 0px;
+    }
+
+    #rating-search {
+        margin-top: 3%;
+        width: 50%;
+        margin: 3% auto auto auto;
     }
 }
 
