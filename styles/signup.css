@@ -20,10 +20,42 @@ body {
     font-weight: 700;
 }
 
+/* Styling to change default Bootstrap Color of Button's Border to match Website Color Scheme */
+#submit-find-me {
+    border-color: #ffc107;
+    background-color: #ffc107;
+    display: grid;
+    float: none;
+    margin: auto;
+    font-weight: 700;
+}
+
 /* Styling to change default Bootstrap Color of label to match Website Color Scheme */
 label.label-field {
     color: white;
 }
+
+input:required:invalid, input:focus:invalid {
+    border-color: red;
+    border-width: medium;
+}
+
+input:required:valid, input:focus:valid {
+    border-color: green;
+    border-width: medium;
+}
+
+select:required:invalid, select:focus:invalid {
+    border-color: red;
+    border-width: medium;
+}
+
+select:required:valid, select:focus:valid {
+    border-color: green;
+    border-width: thick;
+}
+
+
 
 /* Configures responsiveness for bigger screen sizes: laptops, monitors */
 @media screen and (min-width: 981px) {
