@@ -55,7 +55,6 @@ body {
     font-family: 'Mukta', sans-serif;
 }
 
-
 .search-form {
     margin-top: 15%;
     font-family: 'Mukta', sans-serif;
@@ -87,6 +86,18 @@ body {
     font-size: 3.5vh;
 }
 
+.location-btn {
+    height: 6.5vh;
+    text-align: center;
+    margin-right: 5%;
+    overflow: hidden;
+    padding: 2%;
+    font-size: 2.5vh
+}
+
+.btn-container {
+    width: 50%;
+}
 
 /* Configures responsiveness for bigger screen sizes: laptops, monitors */
 @media screen and (min-width: 983px) {
@@ -168,6 +179,25 @@ body {
         margin-top: 3%;
         width: 50%;
         margin: 3% auto auto auto;
+        text-align: center;
+    }
+
+    .btn-container {
+        width: 100%;
+        margin: auto;
+    }
+
+    .location-btn {
+        height: 6.5vh;
+        width: 30%;
+        text-align: center;
+        margin-top: 5%;
+        margin-right: 3%;
     }
 }
 
+@media screen and (max-width: 1038px){
+    .location-btn {
+        margin-right: 1%;
+    }
+}

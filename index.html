@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="styles/navbar.css">
     <link rel="stylesheet" href="styles/search.css">
     <link rel="stylesheet" href="styles/footer.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
   </head>
   <body>
     <header>
@@ -71,22 +72,23 @@
       <form class="search-form" action="results_sample.html">
         <input type="text" class="form-control search-input" placeholder="Enter location here" id="userLocationSearch">
         <select id="rating-search" class="form-control">
-          <option selected>Rating Filter</option>
+          <option selected>Rating</option>
           <option>1</option>
           <option>2</option>
           <option>3</option>
           <option>4</option>
           <option>5</option>
         </select>
-        <div class="d-grid gap-2">
-          <button type="submit" class="btn btn-primary search-btn">Search</button>
+        <div class="row btn-container justify-content-center">
+          <button id="FindLocation" type="button" class="btn btn-primary location-btn col-4" onclick="findLocation()">Find Me</button>
+          <button id="SearchBtn" type="submit" class="btn btn-primary search-btn col-8">Search</button>
         </div>
       </form>
     </div>
     <!-- Page footer containing copyright and navigation links to all of our main pages -->
     <!-- Py and Px involve spacing vertically and horizontally respectively, justify center keeps the content centered -->
     <!-- text-muted gives the footer text that grey look -->
-    <footer class="py-3">
+    <!-- <footer class="py-3">
       <ul class="nav justify-content-center border-bottom pb-2 mb-3">
         <li class="nav-item">
           <a href="index.html" class="nav-link px-2 text-muted">Home</a>
@@ -102,7 +104,8 @@
         </li>
       </ul>
       <p class="text-center text-muted">&copy; Copyright 2021, Paw Go. All  Rights Reserved</p>
-    </footer>
+    </footer> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
+    <script src="scripts/index.js"></script>
   </body>
 </html>
