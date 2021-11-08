@@ -1,0 +1,35 @@
+/*Highlights in red when no input is given*/
+input:required:invalid, input:focus:invalid {
+    border-color: red;
+    border-width: medium;
+}
+
+/*Highlights in green when a valid input is given*/
+input:required:valid, input:focus:valid {
+    border-color: green;
+    border-width: thick;
+}
+
+/*Highlights in red when no value is selected*/
+select:required:invalid, select:focus:invalid {
+    border-color: red;
+    border-width: medium;
+}
+
+/*Highlights in green when a value is selected*/
+select:required:valid, select:focus:valid {
+    border-color: green;
+    border-width: thick;
+}
+
+/*Highlights in red when no valid description is given*/
+textarea:required:invalid, textarea:focus:invalid {
+    border-color: red;
+    border-width: medium;
+}
+
+/*Highlights in green when valid description is given*/
+textarea:required:valid, textarea:focus:valid {
+    border-color: green;
+    border-width: thick;
+}

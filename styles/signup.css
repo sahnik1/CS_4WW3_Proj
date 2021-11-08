@@ -35,28 +35,6 @@ label.label-field {
     color: white;
 }
 
-input:required:invalid, input:focus:invalid {
-    border-color: red;
-    border-width: medium;
-}
-
-input:required:valid, input:focus:valid {
-    border-color: green;
-    border-width: medium;
-}
-
-select:required:invalid, select:focus:invalid {
-    border-color: red;
-    border-width: medium;
-}
-
-select:required:valid, select:focus:valid {
-    border-color: green;
-    border-width: thick;
-}
-
-
-
 /* Configures responsiveness for bigger screen sizes: laptops, monitors */
 @media screen and (min-width: 981px) {
 

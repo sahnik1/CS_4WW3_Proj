@@ -70,7 +70,7 @@
       </div>
       <!-- search form that when submitted redirects to the results_sample page -->
       <form class="search-form" action="results_sample.html">
-        <input type="text" class="form-control search-input" placeholder="Enter location here" id="userLocationSearch">
+        <input type="text" class="form-control search-input" placeholder="Enter location here" id="user-location-search">
         <select id="rating-search" class="form-control">
           <option selected>Rating</option>
           <option>1</option>
@@ -80,8 +80,8 @@
           <option>5</option>
         </select>
         <div class="row btn-container justify-content-center">
-          <button id="FindLocation" type="button" class="btn btn-primary location-btn col-4" onclick="findLocation()">Find Me</button>
-          <button id="SearchBtn" type="submit" class="btn btn-primary search-btn col-8">Search</button>
+          <button id="find-location" type="button" class="btn btn-primary location-btn col-4" onclick="findLocation(this)">Find Me</button>
+          <button id="search-form-submit" type="submit" class="btn btn-primary search-btn col-8">Search</button>
         </div>
       </form>
     </div>
