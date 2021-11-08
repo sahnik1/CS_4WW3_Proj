@@ -25,15 +25,27 @@ table {
     margin-top: 2%;
     margin-left: 2%;
     margin-right: 2%;
-    overflow: hidden;
-    width: 95%;
     height: 100%;
 }
 
-/* constraints for the map-image itself to it does not exceeds its container's  boundaries */
-.map-image {
-    width: auto;
-    height: auto;
-    max-width: 75%;
-    max-height: 50%;
+@media screen and (min-width: 981px) {
+
+    /* Desktop Sizing for the Park Location Map */
+    #Results-Map {
+        height: 400px;
+        margin:auto;
+        width: 70%;
+    }
+
+}
+
+@media screen and (max-width: 981px) {
+
+    /* Mobile Sizing for the Park Location Map */
+    #Results-Map {
+        height: 200px;
+        width: 95%;
+        margin: auto;
+    }
+
 }

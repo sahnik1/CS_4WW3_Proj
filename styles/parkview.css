@@ -100,6 +100,11 @@ div.btn-group.custom-group > .btn-check:checked + .btn-outline-primary {
 /* Configures responsiveness for bigger screen sizes: laptops, monitors */
 @media screen and (min-width: 981px) {
 
+    /* Desktop Sizing for the Park Location Map */
+    #Park-Map {
+        height: 300px;
+    }
+
     /* Different Sizing of MainView for desktops, spacing at left/right ends as Desktop screen is big */
     .mainview{
         border-radius: 25px;
@@ -140,9 +145,8 @@ div.btn-group.custom-group > .btn-check:checked + .btn-outline-primary {
 
     /* Different Placement of Map for desktops as Desktop screen is big */
     .map-container {
-        margin: auto;
+        width: 50%;
         float: right;
-        vertical-align: top;
     }
 
     /* Allows Elements to be placed inline if space permits on Desktop */
@@ -196,6 +200,11 @@ div.btn-group.custom-group > .btn-check:checked + .btn-outline-primary {
 /* Configures responsiveness for mobile devices: mobile phones, tablets */
 @media screen and (max-width: 981px) {
 
+    /* Mobile Sizing for the Park Location Map */
+    #Park-Map {
+        height: 200px;
+    }
+
     /* Mobile Padding for the Park Name Title */
     .park-title {
         padding-top: 5%;
@@ -234,6 +243,7 @@ div.btn-group.custom-group > .btn-check:checked + .btn-outline-primary {
 
     /* Different Margin of Container holding Map for mobile as mobile screen is small */
     .map-container {
+        margin-top: 3%;
         margin: auto;
         width: 100%;
     }
