@@ -1,3 +1,97 @@
+<?php 
+// Include config file
+require_once "config.php";
+
+// Defining the username/password variables
+$user = "";
+$pass = "";
+$user_err = "";
+$pass_err = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST"){
+
+  // Server Side Validation of Username
+  if (empty(trim($_POST["email"]))){
+    $user_err = "Please Enter an Email Address";
+  } else {
+    $sql_template = "SELECT id FROM users WHERE email = :email";
+    $stmt = $pdo->prepare($sql_template);
+    if ($stmt) {
+      // Bind Vars to Prepared Stmt as params
+      $stmt->bindParam(":email", $param_user, PDO::PARAM_STR);
+      // Set Params
+      $param_user = trim($_POST["email"]);
+
+      // We Try to run the SQL stmt
+      if ($stmt->execute()){
+        // If successful and user already exists in DB
+        if($stmt->rowCount() == 1){
+          $user_err = "This Email is Already Registered";
+          echo $user_err;
+        } else {
+          // Since user not in DB, safe to add new user
+          $user = trim($_POST["email"]);
+        }
+      } else {
+        echo "Something Went Wrong, Please Try Again Later!";
+      }
+
+      // Close the connection
+      unset($stmt);
+    }
+  }
+
+  // Server Side Validation of Password
+  if(empty(trim($_POST["password"]))){
+    $pass_err = "Please Enter a Password";
+  } else {
+    $pass = trim($_POST["password"]);
+  }
+
+  $addr = trim($_POST["address"]);
+  $phone = str_replace("-", "", trim($_POST["phone"]));
+  $province = trim($_POST["province"]);
+  $dob = trim($_POST["dob"]);
+
+  // Insert User + Pass into DB for New User
+  if(empty($user_err) && empty($pass_err)){
+    // SQL Template to insert new user
+    $sql = "INSERT INTO users (email, password, address, phone, province, dateofbirth) VALUES (:user, :pass, :addr, :phone, :prov, :dob)";
+    $stmt = $pdo->prepare($sql);
+    if ($stmt) {
+      $stmt->bindParam(":user", $param_user);
+      $param_user = $user;
+
+      $stmt->bindParam(":pass", $param_pass);
+      $param_pass = password_hash($pass, PASSWORD_DEFAULT);
+
+      $stmt->bindParam(":addr", $param_addr);
+      $param_addr = $addr;
+
+      $stmt->bindParam(":phone", $param_phone);
+      $param_phone = $phone;
+
+      $stmt->bindParam(":prov", $param_prov);
+      $param_prov = $province;
+
+      $stmt->bindParam(":dob", $param_dob);
+      $param_dob = $dob;
+
+      if ($stmt->execute()){
+        // User Info Saved in DB, Therefore we redirect to login
+        header("location: index.php");
+      } else {
+        echo "Something Went Wrong";
+      }
+
+      unset($stmt);
+    }
+  }
+
+  unset($pdo);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -14,104 +108,64 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
   </head>
   <body>
-    <header>
-      <!-- Bootstrap 5 navbar setup for a navbar that sticks to the top and is also responsive with screen resizing -->
-      <!-- Hamburger menu appears when the screen width reaches a certain limit, hence the button with class navbar-toggler -->
-      <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container-fluid">
-          <!-- Website logo image pinned to the left of the navbar across all pages -->
-          <img class="dog-paw-icon" src="images/dog-paw-icon.png" alt="Dog Paw Icon">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <!-- Justify-content-center so that our navbar menu items start with a center orientation and are then able to be spaced out from that reference point -->
-          <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-            <!-- Flex-fill allows for each menu item including the menu to be equally spaced out from one another -->
-            <ul class="navbar-nav flex-fill">
-              <li class="nav-item flex-fill">
-                <a class="nav-link" aria-current="page" href="index.html">Home</a>
-              </li>
-              <li class="nav-item flex-fill">
-                <a class="nav-link" href="results_sample.html">Results</a>
-              </li>
-              <li class="nav-item flex-fill">
-                <a class="nav-link" href="submit_object.html">Submit Park</a>
-              </li>
-              <li class="nav-item flex-fill">
-                <!-- div container which pairs the profile icon with the Login/Register menu item to gear users towards our signup page -->
-                <div class="profile">
-                  <img class="profile-icon" src="images/user.png" alt="User/Profile icon">
-                  <!-- Set as the active link as we are currently on this page -->
-                  <a class="nav-link active" href="user_registration.html">Login / Register</a>
-                </div>
-              </li>
-            </ul>
-            <!-- Contains the search bar at the top which allows users to search for park locations across all of our pages -->
-            <!-- Once the user clicks the search button within the navbar it redirects you to the results page -->
-            <form class="d-flex flex-fill" action="results_sample.html">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-warning" type="submit">Search</button>
-            </form>
-          </div>
-        </div>
-      </nav>
-    </header>
+  <header>
+      <?php include 'components/nav_menu.inc' ?>
+  </header>
     <!-- Main view container, contains all of the main content for the page -->
     <div class="container-fluid mainview" id="main-view">
       <!-- Title of view, shows user they are at User Registration Page -->
       <h2 class="signup-title">Sign Up for Access!</h2>
+      <?php 
+      if(!empty($user_err)){
+        $dismiss_btn = "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>";
+        echo "<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\" style=\"margin: auto; width: 50%; text-align: center;\">$user_err</div>";
+      }
+      ?>
       <!-- Another container, this ensures that in the mobile view, we see a different view -->
       <div class="content-container">
         <!-- Signup Page Form Element to record user's signup request -->
-        <form class="signup-form" id="signup-form" action="./index.html" onsubmit="return validate()">
+        <form class="signup-form" id="signup-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" onsubmit="return validate()">
           <!-- Container to allow for different view on desktop vs mobile -->
           <div class="form-row multi-input-row">
             <!-- Email HTML5 Field for signup -->
             <div class="form-group form-field">
               <label class="label-field" for="email-input">Email</label>
-              <input type="text" class="form-control" id="email-input" placeholder="email@gmail.com">
+              <input type="text" name="email" class="form-control" id="email-input" placeholder="email@gmail.com">
             </div>
             <!-- Password HTML5 Field for signup -->
             <div class="form-group form-field">
               <label class="label-field" for="password-input">Password</label>
-              <input type="password" class="form-control" id="password-input" placeholder="**********">
+              <input type="password" name="password" class="form-control" id="password-input" placeholder="**********">
             </div>
           </div>
           <!-- Address HTML5 Field for signup -->
           <div class="form-group form-field">
             <label class="label-field" for="address-input">Address</label>
-            <input type="text" class="form-control" id="address-input" placeholder="1234 Main St">
+            <input type="text" name="address" class="form-control" id="address-input" placeholder="1234 Main St">
           </div>
           <!-- Phone Number HTML5 Field for signup -->
           <div class="form-row multi-input-row">
             <div class="form-group form-field">
               <label class="label-field" for="tel-input">Phone Number</label>
-              <input type="text" class="form-control" id="tel-input" placeholder="905-905-9050">
+              <input type="text" name="phone" class="form-control" id="tel-input" placeholder="905-905-9050">
             </div>
             <!-- Province Selection Field for signup -->
             <div class="form-group form-field">
               <label class="label-field" for="province-input">Province</label>
-              <select id="province-input" class="form-control">
+              <select id="province-input" name="province" class="form-control">
                 <option selected>Select</option>
-                <option>Ontario</option>
-                <option>British Columbia</option>
-                <option>Quebec</option>
-                <option>Saskatchewan</option>
-                <option>P.E.I</option>
-                <option>Nova Scotia</option>
-                <option>New Brunswick</option>
-                <option>Alberta</option>
-                <option>Newfoundland & Labrador</option>
-                <option>Manitoba</option>
-                <option>Yukon</option>
-                <option>Northwest Territories</option>
-                <option>Nunavut</option>
+                <?php 
+                  $provinces = array('Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland & Labrador', 'Northwest Territories', 'Nova Scotia', 'Nunavut', 'Ontario', 'P.E.I', 'Quebec', 'Saskatchewan', 'Yukon');
+                  foreach ($provinces as $value) {
+                    echo "<option>$value</option>";
+                  }
+                ?>
               </select>
             </div>
             <!-- Date HTML5 Field for signup (Date of Birth) -->
             <div class="form-group form-field">
               <label class="label-field" for="dob-input">Date of Birth</label>
-              <input type="date" class="form-control" id="dob-input">
+              <input type="date" name="dob" class="form-control" id="dob-input">
             </div>
           </div>
         </form>
@@ -123,21 +177,7 @@
     <!-- Py and Px involve spacing vertically and horizontally respectively, justify center keeps the content centered -->
     <!-- text-muted gives the footer text that grey look -->
     <footer class="py-3">
-      <ul class="nav justify-content-center border-bottom pb-2 mb-3">
-        <li class="nav-item">
-          <a href="index.html" class="nav-link px-2 text-muted">Home</a>
-        </li>
-        <li class="nav-item">
-          <a href="results_sample.html" class="nav-link px-2 text-muted">Results</a>
-        </li>
-        <li class="nav-item">
-          <a href="submit_object.html" class="nav-link px-2 text-muted">Submit Park</a>
-        </li>
-        <li class="nav-item">
-          <a href="user_registration.html" class="nav-link px-2 text-muted">Login/Register</a>
-        </li>
-      </ul>
-      <p class="text-center text-muted">&copy; Copyright 2021, Paw Go. All  Rights Reserved</p>
+      <?php include 'components/footer.inc' ?>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
     <script src="scripts/form_validation.js"></script>
