@@ -1,0 +1,24 @@
+CREATE DATABASE parks;
+
+CONNECT TO parks;
+
+CREATE TABLE `parks_info` (
+  `Name` mediumtext NOT NULL,
+  `Address` mediumtext NOT NULL,
+  `City` text NOT NULL,
+  `Province` text NOT NULL,
+  `ImageID` int(11) NOT NULL,
+  `ParkID` int(11) NOT NULL,
+  PRIMARY KEY (`ParkID`)
+);
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `phone` int(11) NOT NULL,
+  `province` varchar(255) NOT NULL,
+  `dateofbirth` date NOT NULL,
+  PRIMARY KEY (`id`)
+);
