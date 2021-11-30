@@ -80,11 +80,6 @@ div.btn-group.custom-group > .btn-check:checked + .btn-outline-primary {
     border-color: #ad751d;
 }
 
-/* Styling to change size of rating box to take up the minimum amount of space needed */
-#ratings {
-    width: max-content;
-}
-
 /* Styling to change default Bootstrap Color of Submit Button for Submit Review Page to match Website Color Scheme */
 #submit-review-btn {
     border-color: #ad751d;
@@ -166,7 +161,7 @@ div.btn-group.custom-group > .btn-check:checked + .btn-outline-primary {
     }
 
     /* Custom to Desktop, Place Review Cards inline evenly on screen */
-    #reviews {
+    #ratings {
         display: flex;
         justify-content: space-around;
     }

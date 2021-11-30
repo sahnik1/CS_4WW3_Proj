@@ -1,3 +1,8 @@
+<?php 
+// Start Session
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -20,46 +25,7 @@
   </head>
   <body>
     <header>
-      <!-- Bootstrap 5 navbar setup for a navbar that sticks to the top and is also responsive with screen resizing -->
-      <!-- Hamburger menu appears when the screen width reaches a certain limit, hence the button with class navbar-toggler -->
-      <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container-fluid">
-          <!-- Website logo image pinned to the left of the navbar across all pages -->
-          <img class="dog-paw-icon" src="images/dog-paw-icon.png" alt="Dog Paw Icon">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <!-- Justify-content-center so that our navbar menu items start with a center orientation and are then able to be spaced out from that reference point -->
-          <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-            <!-- Flex-fill allows for each menu item including the menu to be equally spaced out from one another -->
-            <ul class="navbar-nav flex-fill">
-              <li class="nav-item flex-fill">
-                <a class="nav-link" aria-current="page" href="index.html">Home</a>
-              </li>
-              <li class="nav-item flex-fill">
-                <!-- Set as the active link as we are currently on this page -->
-                <a class="nav-link active" href="results_sample.html">Results</a>
-              </li>
-              <li class="nav-item flex-fill">
-                <a class="nav-link" href="submit_object.html">Submit Park</a>
-              </li>
-              <li class="nav-item flex-fill">
-                <!-- div container which pairs the profile icon with the Login/Register menu item to gear users towards our signup page -->
-                <div class="profile">
-                  <img class="profile-icon" src="images/user.png" alt="User/Profile icon">
-                  <a class="nav-link" href="user_registration.html">Login / Register</a>
-                </div>
-              </li>
-            </ul>
-            <!-- Contains the search bar at the top which allows users to search for park locations across all of our pages -->
-            <!-- Once the user clicks the search button within the navbar it redirects you to the results page -->
-            <form class="d-flex flex-fill" action="results_sample.html">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-warning" type="submit">Search</button>
-            </form>
-          </div>
-        </div>
-      </nav>
+      <?php include 'components/nav_menu.inc' ?>
     </header>
     <!-- Main view container, contains all of the main content for the page -->
     <div class="container-fluid mainview" id="main-view">
@@ -77,21 +43,16 @@
             <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="description" aria-selected="true">Information</button>
           </li>
           <li class="nav-item" role="presentation">
-            <form action="object_reviews.html">
-              <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="submit" role="tab" aria-selected="false">Reviews</button>
-            </form>
+              <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-selected="false">Reviews</button>
           </li>
           <li class="nav-item" role="presentation">
-            <form action="object_submit_review.html">
-              <button class="nav-link" id="submit-reviews-tab" data-bs-toggle="tab" data-bs-target="#submit-reviews" type="submit" role="tab" aria-selected="false">Submit Review</button>
-            </form>
+              <button class="nav-link" id="submit-reviews-tab" data-bs-toggle="tab" data-bs-target="#submit-reviews" type="button" role="tab" aria-selected="false">Submit Review</button>
           </li>
         </ul>
         <!-- This container is referred to by the tab that is selected above -->
-        <!-- Since Js is not allowed in Assignment 1, we broke up the links into separate pages -->
         <div class="tab-content">
             <!-- This shows that the current tab content is active and therefore displayed -->
-          <div class="tab-pane active" id="description" role="tabpanel" aria-labelledby="description-tab">
+          <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
               <!-- Using Bootstrap Card element here to encompass the park details and map, also allows responsive design -->
             <div class="card">
               <div class="card-body">
@@ -122,6 +83,95 @@
               </div>
             </div>
           </div>
+
+          <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="ratings-tab">
+            <!-- Each Review is put inside its own Card -->
+            <!-- Each of these cards are then turned into flex containers on desktop -->
+            <div id="ratings">
+
+              <?php 
+                $titles = array("Bad Experience with my puppy :(", "Great Park, Must Visit!!", "Lots of space, but be cautious!");
+                $authors = array("John Smith", "Samantha Nunez", "Elon Musk");
+                $ratings = array(1, 5, 3);
+                $descr = array("The worst dog park in the GTA. If you have small and medium dog don't even bother to go there.", "It's really well maintained and run by a group of volunteers and sponsors who help keep the dog park clean and tidy for everybody to benefit.", "There’s a great amount of space in this dog park. It features a wooded area, agility section, small dogs / puppies section, and of course a general off leash area with park benches & seasonal water.");
+                $total_reviews = count($titles);
+                for ($index = 0;$index < $total_reviews; $index++) { ?>
+                  <div class="card park-reviews">
+                    <div class="card-body review">
+                      <?php echo "<h6 class=\"card-title\">".$titles[$index]."</h6>" ?>
+                      <?php echo "<p class=\"card-subtitle mb-2 text-muted\">".$authors[$index]."</p>" ?>
+                      <div class="rating-container">
+                        <?php for ($star = 0;$star < $ratings[$index]; $star++) {?>
+                        <i class="bi bi-star-fill"></i>
+                        <?php } ?>
+                        <?php for ($star = 5 - $ratings[$index];$star > 0; $star--) {?>
+                        <i class="bi bi-star"></i>
+                        <?php } ?>
+                      </div>
+                      <?php echo "<p class=\"description\">".$descr[$index]."</p>" ?>
+                    </div>
+                  </div>
+              <?php } ?>
+            </div>
+          </div>
+          
+          <div class="tab-pane fade" id="submit-reviews" role="tabpanel" aria-labelledby="submit-reviews-tab">
+            <!-- Using Bootstrap Card element for body of the form and text in this view -->
+            <div class="card submit-review">
+              <div class="card-body">
+                <!-- Title for page in the body letting the user know there are on the submit reviews page -->
+                <h5 class="card-title">Every Review Helps the Community!</h5>
+                <br>
+                <!-- Form Element to record the user's submit review request -->
+                <!-- Form is tied to the submit button, for now in Assignment 1 they are not connected as we cannot use Js -->
+                <form class="submit-review-form">
+                  <!-- Inputs broken up into groups to allow for placing elements inline on desktop -->
+                  <div class="first-group">
+                    <!-- Each input has a unique name for customizing css for its size -->
+                    <div class="review-title-input">
+                    <!-- Each label uses the same CSS styling -->
+                      <label for="review-title" class="form-label title-label">Review Title:</label>
+                      <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="review-title">
+                      </div>
+                    </div>
+                    <!-- Checkboxes resembling buttons to allow user to choose level of anonymity for review to be submitted -->
+                    <div class="btn-group custom-group" role="group" aria-label="Basic radio toggle button group">
+                      <input type="radio" class="btn-check" name="btnradio" id="showmyname"  checked>
+                      <label class="btn btn-outline-primary" for="showmyname">Show My Name</label>
+                      <input type="radio" class="btn-check" name="btnradio" id="anonymous" >
+                      <label class="btn btn-outline-primary" for="anonymous">Anonymous Review</label>
+                    </div>
+                  </div>
+                  <br>
+                  <!-- Big TextArea input type to allow user to leave detailed review description -->
+                  <label class="form-label">Description:</label>
+                  <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                  <br>
+                </form>
+                <!-- Lastly, this form is to allow user to leave a Rating as a part of their review -->
+                <!-- Similar styling to "Anonymous" selection above, checkboxes resembling button used from Bootstrap -->
+                <form class="submit-review-form">
+                  <label class="form-label title-label">Rating:</label>
+                  <div class="btn-group custom-group" id="ratings" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" >
+                    <label class="btn btn-outline-primary" for="btnradio1">1</label>
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" >
+                    <label class="btn btn-outline-primary" for="btnradio2">2</label>
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio3"  checked>
+                    <label class="btn btn-outline-primary" for="btnradio3">3</label>
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio4" >
+                    <label class="btn btn-outline-primary" for="btnradio4">4</label>
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio5" >
+                    <label class="btn btn-outline-primary" for="btnradio5">5</label>
+                  </div>
+                </form>
+                <!-- Finally, Submit Button used to submit form -->
+                <button id="submit-review-btn" type="submit" class="btn btn-outline-primary" data-bs-target="#reviews">Submit</button>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -129,21 +179,7 @@
     <!-- Py and Px involve spacing vertically and horizontally respectively, justify center keeps the content centered -->
     <!-- text-muted gives the footer text that grey look -->
     <footer class="py-3">
-      <ul class="nav justify-content-center border-bottom pb-2 mb-3">
-        <li class="nav-item">
-          <a href="index.html" class="nav-link px-2 text-muted">Home</a>
-        </li>
-        <li class="nav-item">
-          <a href="results_sample.html" class="nav-link px-2 text-muted">Results</a>
-        </li>
-        <li class="nav-item">
-          <a href="submit_object.html" class="nav-link px-2 text-muted">Submit Park</a>
-        </li>
-        <li class="nav-item">
-          <a href="user_registration.html" class="nav-link px-2 text-muted">Login/Register</a>
-        </li>
-      </ul>
-      <p class="text-center text-muted">&copy; Copyright 2021, Paw Go. All  Rights Reserved</p>
+      <?php include 'components/footer.inc' ?>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
     <script src="./scripts/map_object_page.js"></script>

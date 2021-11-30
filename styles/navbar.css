@@ -21,3 +21,8 @@ nav {
     margin-top: 7px;
 }
 
+@media screen and (min-width: 981px) {
+    #navbarNav > ul.navbar-nav {
+        margin: 0 2% 0 2%;
+    }
+}

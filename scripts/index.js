@@ -25,7 +25,7 @@ function displayLocationSubmitPage(location) {
 //contact mapquestapi for reverse geolocatio to convert lat lon to address
 function getAddress(location, id) {
     //compose url by appending latitude and longitude
-    let url = "http://www.mapquestapi.com/geocoding/v1/reverse?key=HQgoCTT0q3L43jSIZaO1XkFiqYu9f38k&location=" + location.coords.latitude + "," + location.coords.longitude;
+    let url = "https://www.mapquestapi.com/geocoding/v1/reverse?key=HQgoCTT0q3L43jSIZaO1XkFiqYu9f38k&location=" + location.coords.latitude + "," + location.coords.longitude;
 
     //get request which gets a json file with the information about the user's address based on their latitude and longitude
     //it formats the address to "address, city, province, postal code"
