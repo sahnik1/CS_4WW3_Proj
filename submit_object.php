@@ -1,6 +1,77 @@
 <?php 
-// Start Session
+
+// Start/continue the session
 session_start();
+
+// Include Config File
+require_once "config.php";
+// Include S3 Config File
+require_once "upload-to-s3.php";
+
+$error_msg = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST"){
+
+  $image = $_FILES['park_image'];
+
+  $park_name = trim($_POST["park-name"]);
+  echo $park_name;
+  $puppies = trim($_POST["puppies"]);
+  $descr = trim($_POST["description"]);
+  $addr = trim($_POST["address"]);
+  $city = trim($_POST["city"]);
+  $prov = trim($_POST["province"]);
+
+  if (isset($park_name) && isset($puppies) && isset($descr) && isset($addr) && isset($city) && isset($prov)){
+    // SQL Template to insert new user
+    $sql = "INSERT INTO parks_info (name, puppies, description, address, city, province) VALUES (:park, :puppy, :descr, :addr, :city, :prov)";
+    $stmt = $pdo->prepare($sql);
+    if ($stmt) {
+      $stmt->bindParam(":park", $param_park);
+      $param_park = $park_name;
+
+      $stmt->bindParam(":puppy", $param_puppy);
+      if (strtolower($puppies) == "yes"){
+        $param_puppy = 1;
+      } else {
+        $param_puppy = 0;
+      }
+
+      $stmt->bindParam(":descr", $param_descr);
+      $param_descr = $descr;
+
+      $stmt->bindParam(":addr", $param_addr);
+      $param_addr = $addr;
+
+      $stmt->bindParam(":city", $param_city);
+      $param_city = $city;
+
+      $stmt->bindParam(":prov", $param_prov);
+      $param_prov = $prov;
+
+      if ($stmt->execute()){
+
+        $parkid = $pdo->lastInsertId();
+        $result = $s3Client->putObject([
+          'Bucket' => 'paw-go-park-images',
+          'Key' => $parkid,
+          'SourceFile' => $image["tmp_name"]
+        ]);
+        // User Info Saved in DB, Therefore we redirect to login
+        header("location: index.php");
+
+      } else {
+        echo "Something Went Wrong";
+      }
+
+      unset($stmt);
+    }
+  } else {
+    $error_msg = "Please check your input";
+  }
+
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -31,19 +102,20 @@ session_start();
       <!-- Another container, this ensures that in the mobile view, we see a different view -->
       <div class="content-container">
         <!-- Signup Page Form Element to record user's park submission -->
-        <form class="signup-form" id="submit-park-form" action="./object_page.php">
+        <?php if (isset($_SESSION["signedin"]) && $_SESSION["signedin"] === true) { ?>
+        <form class="signup-form" id="submit-park-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
           <!-- Container to allow for different view on desktop vs mobile -->
           <div class="form-row multi-input-row">
             <!-- Text HTML5 Field for Park Name -->
             <div class="form-group form-field">
               <label class="label-field" for="name-input">Park Name</label>
               <!-- Required Field -->
-              <input type="text" class="form-control" id="name-input" placeholder="Enter park name" required minlength="6" maxlength="100">
+              <input type="text" class="form-control" name="park-name" id="name-input" placeholder="Enter park name" required minlength="6" maxlength="100">
             </div>
             <!-- Selection HTML5 Field for Park Preferences -->
             <div class="form-group form-field">
               <label class="label-field" for="puppies-input">Puppies Allowed?</label>
-              <select id="puppies-input" class="form-control" required>
+              <select id="puppies-input" name="puppies" class="form-control" required>
                 <option value="" selected>Select</option>
                 <option>Yes</option>
                 <option>No</option>
@@ -53,49 +125,52 @@ session_start();
           <!-- TextArea HTML5 Field for Park Description -->
           <div class="form-group form-field">
             <label class="label-field">Description</label>
-            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" required minlength="10" maxlength="250"></textarea>
+            <textarea class="form-control" name="description" placeholder="Leave a comment here" id="floatingTextarea" required minlength="10" maxlength="250"></textarea>
           </div>
           <!-- Text HTML5 Field for Address -->
           <div class="form-group form-field">
             <label class="label-field" for="address-input">Address</label>
-            <input type="text" class="form-control" id="address-input" placeholder="1234 Main St" required>
+            <input type="text" class="form-control" name="address" id="address-input" placeholder="1234 Main St" required>
             <button id="submit-find-me" type="button" class="btn btn-primary location-btn col-4" onclick="findLocation(this)">Find Me</button>
           </div>
           <!-- Text HTML5 Field for City Park is Located in -->
           <div class="form-row multi-input-row">
             <div class="form-group form-field">
               <label class="label-field" for="city-input">City</label>
-              <input type="text" class="form-control" id="city-input" placeholder="Toronto" required>
+              <input type="text" class="form-control" name="city" id="city-input" placeholder="Toronto" required>
             </div>
             <!-- Selection HTML5 Field for Choosing Province Park Located in -->
             <div class="form-group form-field">
               <label class="label-field" for="province-input">Province</label>
-              <select id="province-input" class="form-control" required>
+              <select id="province-input" name="province" class="form-control" required>
                 <option value="" selected>Select</option>
-                <option>Ontario</option>
-                <option>British Columbia</option>
-                <option>Quebec</option>
-                <option>Saskatchewan</option>
-                <option>P.E.I</option>
-                <option>Nova Scotia</option>
-                <option>New Brunswick</option>
-                <option>Alberta</option>
-                <option>Newfoundland & Labrador</option>
-                <option>Manitoba</option>
-                <option>Yukon</option>
-                <option>Northwest Territories</option>
-                <option>Nunavut</option>
+                <?php 
+                  $provinces = array('Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland & Labrador', 'Northwest Territories', 'Nova Scotia', 'Nunavut', 'Ontario', 'P.E.I', 'Quebec', 'Saskatchewan', 'Yukon');
+                  foreach ($provinces as $value) {
+                    echo "<option>$value</option>";
+                  }
+                ?>
               </select>
             </div>
             <!-- File Upload HTML5 Field for Uploading Park Image -->
             <div class="form-group form-field">
               <label class="label-field" for="upload-input">Image Upload</label>
-              <input type="file" class="form-control" id="upload-input" required>
+              <input type="file" name="park_image" class="form-control" id="upload-input" required>
             </div>
           </div>
         </form>
         <!-- Submit Button Linked to Form Element Above -->
         <button type="submit" form="submit-park-form" id="submit-signup-form" class="btn btn-primary">Submit Park for Review</button>
+        <?php } else { ?>
+          <div id="login-register-container">
+            <form action="./user_registration.php">
+              <button type="submit" class="btn btn-primary btn-lg" id="submit-signup-form" style="display: inline-flex;">Register</button>
+            </form>
+            <form action="./user_login.php">
+              <button type="submit" class="btn btn-primary btn-lg" id="submit-signup-form" style="display: inline-flex;">Login</button>
+            </form>
+          </div>
+        <?php }?>
       </div>
     </div>
     <!-- Page footer containing copyright and navigation links to all of our main pages -->

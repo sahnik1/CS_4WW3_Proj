@@ -35,6 +35,13 @@ label.label-field {
     color: white;
 }
 
+/* */
+#login-register-container {
+    margin: auto;
+    display: flex;
+    justify-content: space-evenly;
+}
+
 /* Configures responsiveness for bigger screen sizes: laptops, monitors */
 @media screen and (min-width: 981px) {
 

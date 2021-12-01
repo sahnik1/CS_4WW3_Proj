@@ -39,14 +39,14 @@
               <?php
                     // If the User is currently logged in, we show the Profile page otherwise we show the Login Page
                     if (isset($_SESSION["signedin"]) && $_SESSION["signedin"] === true) {
-                      echo "<a class=\"nav-link\" data-toggle=\"modal\" data-target=\"#logoutmodal\">Logout</a>";
+                      echo "<a class=\"nav-link\" href=\"user_logout.php\">Logout</a>";
                     } else {
                       echo "<a class=\"nav-link\" href=\"user_registration.php\">Register</a>";
                     }
               ?>
             </ul>
             <?php if (isset($_SESSION["signedin"]) && $_SESSION["signedin"] === true) { ?>
-              <div class="modal fade" id="logoutmodal" tabindex="-1" role="dialog">
+              <div class="modal fade" id="logoutmodal" role="dialog">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
