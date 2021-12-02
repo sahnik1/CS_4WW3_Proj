@@ -1,6 +1,124 @@
-<?php 
+<?php
 // Start Session
 session_start();
+
+// Include Config File
+require_once "config.php";
+// Include S3 Config File
+require_once "upload-to-s3.php";
+
+$parkid = $_GET["parkid"];
+$results = array();
+
+$rev_title_err = "";
+$rev_title = "";
+$rev_descr_err = "";
+$rev_descr = "";
+
+// Handling a review submission
+if ($_SERVER["REQUEST_METHOD"] == "POST"){
+
+  // Ttle Server Side Validation
+  if (empty(trim($_POST["title"]))){
+    $rev_title_err = "Please Enter a Title for the review";
+  } else{
+    $rev_title = trim($_POST["title"]);
+  }
+
+  // Description Server Side Validation
+  if (empty(trim($_POST["description"]))){
+    $rev_descr_err = "Please Enter a Description for the review";
+  } else{
+    $rev_descr = trim($_POST["description"]);
+  }
+
+  if (empty($rev_title_err) && empty($rev_descr_err)){
+    // SQL Template to upload review
+    $sql = "INSERT INTO reviews (parkid, name, title, description, rating) VALUES (:id, :name, :title, :descr, :rating)";
+    $stmt = $pdo->prepare($sql);
+    
+    if ($stmt){
+      // Bind the vars to the statement
+      $stmt->bindParam(":id", $param_parkid, PDO::PARAM_INT);
+      $param_parkid = intval($parkid);
+
+      $stmt->bindParam(":name", $param_name);
+      $param_name = $_SESSION["username"];
+
+      $stmt->bindParam(":title", $param_title);
+      $param_title = $rev_title;
+
+      $stmt->bindParam(":descr", $param_descr);
+      $param_descr = $rev_descr;
+
+      $stmt->bindParam(":rating", $param_rating);
+      $param_rating = 5;
+      if ($stmt->execute()){
+        // User Review Saved in DB, Therefore we redirect back to original page
+        header("location: object_page.php?parkid=".$parkid);
+      } else {
+        echo "Something Went Wrong";
+      }
+
+      unset($stmt);
+    }
+  }
+}
+
+if (isset($parkid)){
+  // SQL Template to retrieve park info and reviews
+  $sql = "SELECT name, puppies, description, address, city, province from parks_info WHERE id = :id";
+  $stmt = $pdo->prepare($sql);
+  if ($stmt){
+    // Bind the var to the statement
+    $stmt->bindParam(":id", $param_parkid, PDO::PARAM_INT);
+    $param_parkid = intval($parkid);
+    // Now we retrieve the park's general info
+    if ($stmt->execute()){
+      // Check that we have ONLY one park with this id
+      if ($stmt->rowCount() == 1){
+        $row = $stmt->fetch();
+        if ($row){
+          $results["name"] = $row["name"];
+          $results["puppies"] = $row["puppies"];
+          $results["description"] = $row["description"];
+          $results["address"] = $row["address"];
+          $results["city"] = $row["city"];
+          $results["province"] = $row["province"];
+          $results["reviews"] = array();
+
+          $sql = "SELECT name, title, description, rating from reviews WHERE parkid = :id";
+          $stmt = $pdo->prepare($sql);
+          if ($stmt){
+            $stmt->bindParam(":id", $param_parkid, PDO::PARAM_INT);
+            $param_parkid = intval($parkid);
+            if ($stmt->execute()){
+              if ($stmt->rowCount() > 0){
+                $row = $stmt->fetchAll();
+                if ($row){
+                  $results["reviews"] = $row;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Command for getting the image associated with the park id
+  $cmd = $s3Client->getCommand('GetObject', [
+    'Bucket' => 'paw-go-park-images',
+    'Key' => $parkid
+  ]);
+
+  // Request for creating presigned url for viewing image
+  $request = $s3Client->createPresignedRequest($cmd, '+60 minutes');
+
+  // Get the actual presigned-url
+  $results["imageurl"] = (string)$request->getUri();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +138,7 @@ session_start();
     crossorigin=""></script>
     <!-- meta tags specifying charset, and user visible area -->
     <meta charset="utf-8">
-    <title>Paw Go - Oakville Dog Park</title>
+    <?php echo "<title>".$results["name"]."</title>"; ?>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
   </head>
   <body>
@@ -30,10 +148,10 @@ session_start();
     <!-- Main view container, contains all of the main content for the page -->
     <div class="container-fluid mainview" id="main-view">
       <!-- Title of view, shows which park information currently looking at -->
-      <h2 class="park-title">Oakville Dog Park</h2>
+      <h2 class="park-title"><?php echo $results["name"];?></h2>
       <!-- Container for resizing the dog park image for mobile/desktop -->
       <div class="park-img-container">
-        <img class="park-img" src="./images/oakville-dog-park.jpg" alt="Dog Park Picture">
+        <img class="park-img" src="<?php echo $results["imageurl"]; ?>" alt="Dog Park Picture">
       </div>
       <!-- Another container, this ensures that in the mobile view, we see a different view -->
       <div class="content-container">
@@ -59,10 +177,10 @@ session_start();
                   <!-- Inner container to separat block of text from the map image -->
                 <div class="inner-card-container">
                   <!-- Dog Park Title as shown in Description -->
-                  <h4 class="card-title">Oakville Dog Park</h4>
+                  <h4 class="card-title"><?php echo $results["name"]; ?></h4>
                   <br>
                   <!-- Dog Park Address as shown in Description -->
-                  <h5 class="card-subtitle mb-2 text-muted">230 Random St, Oakville, ON L67M35</h5>
+                  <h5 class="card-subtitle mb-2 text-muted"><?php echo $results["address"]; ?></h5>
                   <br>
                   <!-- Span element to show inline the average rating using star icons in Bootstrap -->
                   <span>
@@ -119,12 +237,12 @@ session_start();
             <!-- Using Bootstrap Card element for body of the form and text in this view -->
             <div class="card submit-review">
               <div class="card-body">
+                <?php if (isset($_SESSION["signedin"]) && $_SESSION["signedin"] === true) { ?>
                 <!-- Title for page in the body letting the user know there are on the submit reviews page -->
                 <h5 class="card-title">Every Review Helps the Community!</h5>
                 <br>
                 <!-- Form Element to record the user's submit review request -->
-                <!-- Form is tied to the submit button, for now in Assignment 1 they are not connected as we cannot use Js -->
-                <form class="submit-review-form">
+                <form class="submit-review-form" id="submit-review" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"])."?parkid=".$parkid; ?>" method="post">
                   <!-- Inputs broken up into groups to allow for placing elements inline on desktop -->
                   <div class="first-group">
                     <!-- Each input has a unique name for customizing css for its size -->
@@ -132,7 +250,7 @@ session_start();
                     <!-- Each label uses the same CSS styling -->
                       <label for="review-title" class="form-label title-label">Review Title:</label>
                       <div class="input-group mb-3">
-                        <input type="text" class="form-control" id="review-title">
+                        <input type="text" name="title" class="form-control" id="review-title">
                       </div>
                     </div>
                     <!-- Checkboxes resembling buttons to allow user to choose level of anonymity for review to be submitted -->
@@ -146,7 +264,7 @@ session_start();
                   <br>
                   <!-- Big TextArea input type to allow user to leave detailed review description -->
                   <label class="form-label">Description:</label>
-                  <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                  <textarea class="form-control" name="description" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
                   <br>
                 </form>
                 <!-- Lastly, this form is to allow user to leave a Rating as a part of their review -->
@@ -167,7 +285,18 @@ session_start();
                   </div>
                 </form>
                 <!-- Finally, Submit Button used to submit form -->
-                <button id="submit-review-btn" type="submit" class="btn btn-outline-primary" data-bs-target="#reviews">Submit</button>
+                <button id="submit-review-btn" form="submit-review" type="submit" class="btn btn-outline-primary">Submit</button>
+                <?php } else { ?>
+                  <h3 class="login-page-title">Please Register or Login to submit a review<h3>
+                  <div id="login-register-container">
+                    <form action="./user_registration.php">
+                      <button type="submit" class="btn btn-primary btn-lg" id="submit-signup-form" style="display: inline-flex;">Register</button>
+                    </form>
+                    <form action="./user_login.php">
+                      <button type="submit" class="btn btn-primary btn-lg" id="submit-signup-form" style="display: inline-flex;">Login</button>
+                    </form>
+                  </div>
+                <?php } ?>
               </div>
             </div>
           </div>
