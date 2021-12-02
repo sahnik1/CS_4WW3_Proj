@@ -27,7 +27,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         // If successful and user already exists in DB
         if($stmt->rowCount() == 1){
           $user_err = "This Email is Already Registered";
-          echo $user_err;
         } else {
           // Since user not in DB, safe to add new user
           $user = trim($_POST["email"]);
@@ -48,6 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $pass = trim($_POST["password"]);
   }
 
+  $name = trim($_POST["name"]);
   $addr = trim($_POST["address"]);
   $phone = str_replace("-", "", trim($_POST["phone"]));
   $province = trim($_POST["province"]);
@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
   // Insert User + Pass into DB for New User
   if(empty($user_err) && empty($pass_err)){
     // SQL Template to insert new user
-    $sql = "INSERT INTO users (email, password, address, phone, province, dateofbirth) VALUES (:user, :pass, :addr, :phone, :prov, :dob)";
+    $sql = "INSERT INTO users (email, password, name, address, phone, province, dateofbirth) VALUES (:user, :pass, :name, :addr, :phone, :prov, :dob)";
     $stmt = $pdo->prepare($sql);
     if ($stmt) {
       $stmt->bindParam(":user", $param_user);
@@ -64,6 +64,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
       $stmt->bindParam(":pass", $param_pass);
       $param_pass = password_hash($pass, PASSWORD_DEFAULT);
+
+      $stmt->bindParam(":name", $param_name);
+      $param_name = $name;
 
       $stmt->bindParam(":addr", $param_addr);
       $param_addr = $addr;
@@ -138,10 +141,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
               <input type="password" name="password" class="form-control" id="password-input" placeholder="**********">
             </div>
           </div>
-          <!-- Address HTML5 Field for signup -->
-          <div class="form-group form-field">
-            <label class="label-field" for="address-input">Address</label>
-            <input type="text" name="address" class="form-control" id="address-input" placeholder="1234 Main St">
+          <div class="form-row multi-input-row">
+            <!-- Name Field for signup -->
+            <div class="form-group form-field">
+              <label class="label-field" for="name-input">Full Name</label>
+              <input type="text" name="name" class="form-control" id="name-input" placeholder="John A. Smith">
+            </div>
+            <!-- Address HTML5 Field for signup -->
+            <div class="form-group form-field">
+              <label class="label-field" for="address-input">Address</label>
+              <input type="text" name="address" class="form-control" id="address-input" placeholder="1234 Main St">
+            </div>
           </div>
           <!-- Phone Number HTML5 Field for signup -->
           <div class="form-row multi-input-row">

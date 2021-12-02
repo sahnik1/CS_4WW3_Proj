@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
   // Validate Credentials
   if(empty($user_err) && empty($pass_err)){
     // SQL template statement
-    $sql = "SELECT id, email, password FROM users WHERE email = :email";
+    $sql = "SELECT id, name, email, password FROM users WHERE email = :email";
     $stmt = $pdo->prepare($sql);
     if ($stmt){
       // Bind the var to the statment
@@ -41,6 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
           $row = $stmt->fetch();
           if ($row){
             $user_id = $row["id"];
+            $user_name = $row["name"];
             $user_email = $row["email"];
             $encrypted_pass = $row["password"];
             // Verify Hashed Password against entered Password
@@ -49,6 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
               session_start();
               $_SESSION["signedin"] = true;
               $_SESSION["id"] = $user_id;
+              $_SESSION["username"] = $user_name;
               header("location: index.php");
             } else {
               $signin_err = "Invalid Credentials, Please Try Again";
@@ -94,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
       $errors = array($user_err, $pass_err, $general_err);
       foreach ($errors as $value) {
         if (!empty($value)){
-          echo "<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\" style=\"margin: auto; width: 50%; text-align: center;\">$value</div>";
+          echo "<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\" style=\"margin: 1% auto; width: 50%; text-align: center;\">$value</div>";
         }
       }
       $dismiss_btn = "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>";
