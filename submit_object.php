@@ -14,17 +14,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
   $image = $_FILES['park_image'];
 
+  $image_ext = strtolower(pathinfo($image["name"], PATHINFO_EXTENSION));
+  $type = "";
+  if ($image_ext == 'jpeg' || $image_ext == 'jpg'){
+    $type = "image/jpg";
+  } elseif ($image_ext == 'gif'){
+    $type = "image/gif";
+  } elseif ($image_ext == 'png'){
+    $type = "image/png";
+  } else {
+    $error_msg = "Error: Only PNG, JPG/JPEG and GIF Files Accepted";
+  }
+
   $park_name = trim($_POST["park-name"]);
-  echo $park_name;
   $puppies = trim($_POST["puppies"]);
   $descr = trim($_POST["description"]);
   $addr = trim($_POST["address"]);
   $city = trim($_POST["city"]);
   $prov = trim($_POST["province"]);
 
-  if (isset($park_name) && isset($puppies) && isset($descr) && isset($addr) && isset($city) && isset($prov)){
+  if (isset($park_name) && isset($puppies) && isset($descr) && isset($addr) && isset($city) && isset($prov) && empty($error_msg)){
     // SQL Template to insert new user
-    $sql = "INSERT INTO parks_info (name, puppies, description, address, city, province) VALUES (:park, :puppy, :descr, :addr, :city, :prov)";
+    $sql = "INSERT INTO parks_info (name, puppies, description, address, city, province, avgrating) VALUES (:park, :puppy, :descr, :addr, :city, :prov, :rating)";
     $stmt = $pdo->prepare($sql);
     if ($stmt) {
       $stmt->bindParam(":park", $param_park);
@@ -49,16 +60,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
       $stmt->bindParam(":prov", $param_prov);
       $param_prov = $prov;
 
+      // Default rating assigned to a park is zero
+      $stmt->bindParam(":rating", $param_rating);
+      $param_rating = 0;
+
       if ($stmt->execute()){
 
         $parkid = $pdo->lastInsertId();
         $result = $s3Client->putObject([
           'Bucket' => 'paw-go-park-images',
           'Key' => $parkid,
-          'SourceFile' => $image["tmp_name"]
+          'SourceFile' => $image["tmp_name"],
+          'ContentType' => $type
         ]);
         // User Info Saved in DB, Therefore we redirect to login
-        header("location: index.php");
+        header("location: object_page.php?parkid=".$parkid);
 
       } else {
         echo "Something Went Wrong";
@@ -66,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
       unset($stmt);
     }
-  } else {
+  } elseif (!isset($error_msg)){
     $error_msg = "Please check your input";
   }
 
