@@ -25,13 +25,6 @@ function displayLocationSubmitPage(location) {
 //contact mapquestapi for reverse geolocation to convert lat lon to address
 function getAddress(location, id) {
 
-    $.ajax({
-        type:'POST',
-        url:'submit_object.php',
-        data:'latitude='+location.coords.latitude+'&longitude='+location.coords.longitude,
-        success:function(msg){}
-    });
-
     //compose url by appending latitude and longitude
     let url = "https://www.mapquestapi.com/geocoding/v1/reverse?key=HQgoCTT0q3L43jSIZaO1XkFiqYu9f38k&location=" + location.coords.latitude + "," + location.coords.longitude;
 

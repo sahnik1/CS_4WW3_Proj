@@ -2,6 +2,7 @@ function validate() {
     //ids for each of the form fields
     const emailId = '#email-input';
     const passwordId = '#password-input';
+    const name = '#name-input'
     const addressId = '#address-input';
     const phoneId = '#tel-input';
     const provinceId = '#province-input';
@@ -22,6 +23,14 @@ function validate() {
         return false;
     } else {
         validField(passwordId);
+    }
+
+    //check for valid name
+    if(!validateName(name)) {
+        invalidField(name);
+        return false;
+    } else {
+        validField(name);
     }
 
     //check for valid address
@@ -102,6 +111,18 @@ function validateAddress(addressId) {
     } else if (address.search(/[a-z]/i) < 0) {
         alert('Address must contain a lower or uppercase character');
         return false;
+    }
+    return true;
+}
+
+function validateName(name) {
+    let name_val = $(name).val();
+    if (name_val.length <= 0) {
+        alert('Please enter a valid name');
+        return false;
+    } else if (address.search(/[a-z]/i) < 0) {
+        alert('A name must contain a letter');
+        return false
     }
     return true;
 }
