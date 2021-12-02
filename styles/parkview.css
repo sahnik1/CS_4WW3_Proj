@@ -92,6 +92,27 @@ div.btn-group.custom-group > .btn-check:checked + .btn-outline-primary {
     border-color: #ad751d;
 }
 
+#login-register-container {
+    margin: auto;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+/* Styling to change default Bootstrap Color of Button's Border to match Website Color Scheme */
+#submit-signup-form {
+    border-color: #ffc107;
+    background-color: #ffc107;
+    display: grid;
+    float: none;
+    margin: auto;
+    font-weight: 700;
+}
+
+h3.login-page-title {
+    text-align: center;
+    margin: 2% 0;
+}
+
 /* Configures responsiveness for bigger screen sizes: laptops, monitors */
 @media screen and (min-width: 981px) {
 
@@ -160,10 +181,15 @@ div.btn-group.custom-group > .btn-check:checked + .btn-outline-primary {
         width: 40%;
     }
 
+    .card-title {
+        text-align: center;
+    }
+
     /* Custom to Desktop, Place Review Cards inline evenly on screen */
     #ratings {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
     }
 
     /* Allows Review Cards to placed inline to each other */
