@@ -51,6 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
               $_SESSION["signedin"] = true;
               $_SESSION["id"] = $user_id;
               $_SESSION["username"] = $user_name;
+              $_SESSION["email"] = $user_email;
               header("location: index.php");
             } else {
               $signin_err = "Invalid Credentials, Please Try Again";

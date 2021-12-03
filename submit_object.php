@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
   $city = trim($_POST["city"]);
   $prov = trim($_POST["province"]);
 
-  if (isset($park_name) && isset($puppies) && isset($descr) && isset($addr) && isset($city) && isset($prov) && empty($error_msg)){
+  if (!empty($park_name) && !empty($puppies) && !empty($descr) && !empty($addr) && !empty($city) && !empty($prov) && !empty($error_msg)){
     // SQL Template to insert new user
     $sql = "INSERT INTO parks_info (name, puppies, description, address, city, province, avgrating) VALUES (:park, :puppy, :descr, :addr, :city, :prov, :rating)";
     $stmt = $pdo->prepare($sql);
@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
       unset($stmt);
     }
-  } elseif (!isset($error_msg)){
+  } elseif (empty($error_msg)){
     $error_msg = "Please check your input";
   }
 
