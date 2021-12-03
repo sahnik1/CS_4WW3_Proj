@@ -33,9 +33,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
   }
 
   if (empty($rev_title_err) && empty($rev_descr_err)){
-    echo "ENTERED CONDITIONAL!!";
     // SQL Template to upload review
-    $sql = "INSERT INTO reviews (parkid, name, title, description, rating) VALUES (:id, :name, :title, :descr, :rating)";
+    $sql = "INSERT INTO reviews (parkid, userid, title, description, rating) VALUES (:id, :userid, :title, :descr, :rating)";
     $stmt = $pdo->prepare($sql);
     
     if ($stmt){
@@ -43,8 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
       $stmt->bindParam(":id", $param_parkid, PDO::PARAM_INT);
       $param_parkid = intval($parkid);
 
-      $stmt->bindParam(":name", $param_name);
-      $param_name = $_SESSION["username"];
+      $stmt->bindParam(":userid", $param_userid);
+      $param_userid = $_SESSION["id"];
 
       $stmt->bindParam(":title", $param_title);
       $param_title = $rev_title;
