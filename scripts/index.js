@@ -63,6 +63,7 @@ $('.search-form').submit(function(e) {
     let searchRating = $("#rating-search").val();
 
     if(!searchLocation && searchRating !== 'Rating') {
+        //hidden input tag contains parameters which are sent to the server
         $(".search-form").append(
           `<input type="hidden" name="rating" id="rating" value=${searchRating}>`
         );
@@ -83,6 +84,7 @@ $('.search-form').submit(function(e) {
             dataType: "json",
             context: $form, // it will become this
             success: function (res) {
+                //hidden input tag contains parameters which are sent to the server
                 $(".search-form").append(
                   `<input type="hidden" name="lat" id="lat" value=${res["results"][0]["locations"][0]["latLng"]["lat"]}>`
                 );

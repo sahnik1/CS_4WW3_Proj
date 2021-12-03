@@ -1,6 +1,93 @@
 <?php 
 // Start Session
 session_start();
+
+//Include Config File
+require_once "config.php";
+
+$lat = NULL;
+$lon = NULL;
+$rating = NULL;
+$locations = array();
+$distance = 0;
+
+if (isset($_GET['lat']) && isset($_GET['lon'])) {
+  $lat = $_GET['lat'];
+  $lon = $_GET['lon'];
+} elseif (isset($_GET['rating'])) {
+  $rating = $_GET['rating'];
+} else {
+  // default case in order to display data if by accident someone reaches the url
+  // and no GET parameters were given
+  $rating = "3";
+}
+
+if (isset($lat) && isset($lon)) {
+  // SQL query to sort parks in order of distance
+  $sql = "
+    SELECT 
+      id, 
+      name,
+      address,
+      city,
+      province, 
+      avgrating, 
+      latitude,
+      longitude,
+      (3959 * acos( cos(radians($lat))* cos(radians(latitude))* cos(radians(longitude) - radians($lon))+ sin(radians($lat))* sin(radians(latitude))))
+      AS 
+        distance
+    FROM
+      parks_info
+    HAVING
+      distance < 200
+    ORDER BY
+      distance
+    LIMIT 0,20";
+  $stmt = $pdo->prepare($sql);
+  if ($stmt && $stmt->execute()) {
+    if ($stmt->rowCount() > 0) {
+      $locations = $stmt->fetchAll();
+    } else {
+      echo "No parks within a 200km radius";
+    }
+  } else {
+    echo "Unable to retrieve closest parks";
+  }
+
+  unset($stmt);
+} elseif(isset($rating)) {
+    $sql = "
+      SELECT 
+        id, 
+        name,
+        address,
+        city,
+        province, 
+        avgrating, 
+        latitude,
+        longitude
+      FROM
+        parks_info
+      HAVING
+        avgrating >= $rating
+      ORDER BY
+        avgrating DESC
+      LIMIT 0,20";
+    $stmt = $pdo->prepare($sql);
+    if ($stmt && $stmt->execute()) {
+      if ($stmt->rowCount() > 0) {
+        $locations = $stmt->fetchAll();
+      } else {
+        echo "No parks that meet the rating requirement";
+      }
+    }
+
+    unset($stmt);
+  } else {
+  echo "Something Went Wrong";
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -28,6 +115,12 @@ session_start();
     <header>
       <?php include 'components/nav_menu.inc' ?>
     </header>
+    <?php 
+      if(isset($lat) && isset($lon)) {
+        echo "<input type=\"hidden\" name=\"lat\" id=\"lat\" value=$lat>";
+        echo "<input type=\"hidden\" name=\"lon\" id=\"lon\" value=$lon>";
+      }
+    ?>
     <!-- Container for the map that is centered vertically in the page view, contains the user's location centered in the map view -->
     <!-- while highlighting all of the dog parks near the user using a custom indicator -->
     <div class="map-container text-center">
@@ -48,72 +141,33 @@ session_start();
         </thead>
         <tbody>
           <!-- Each table row contains an anchor tag behaving as a button, in order to redirect users to that specific object's page -->
-          <tr>
-            <td class="distance-cell">28.1 km</td>
-            <td>Ajax Dog Park</td>
-            <td>3.6/5</td>
-            <td class="table-btn-cell"><a href="object_page.php" class="btn btn-primary row-link">Find</a></td>
-          </tr>
-          <tr>
-            <td class="distance-cell">30.2 km</td>
-            <td>Oshawa Dog Park</td>
-            <td>3.7/5</td>
-            <td class="table-btn-cell"><a href="object_page.php" class="btn btn-primary row-link">Find</a></td>
-          </tr>
-          <tr>
-            <td class="distance-cell">5.2 km</td>
-            <td>Burlington Dog Park</td>
-            <td>3.8/5</td>
-            <td class="table-btn-cell"><a href="object_page.php" class="btn btn-primary row-link">Find</a></td>
-          </tr>
-          <tr>
-            <td class="distance-cell">15.5 km</td>
-            <td>Milton Dog Park</td>
-            <td>3.9/5</td>
-            <td class="table-btn-cell"><a href="object_page.php" class="btn btn-primary row-link">Find</a></td>
-          </tr>
-          <tr>
-            <td class="distance-cell">1.5 km</td>
-            <td>Oakville Dog Park</td>
-            <td>4.0/5</td>
-            <td class="table-btn-cell"><a href="object_page.php" class="btn btn-primary row-link">Find</a></td>
-          </tr>
-          <tr>
-            <td class="distance-cell">10.2 km</td>
-            <td>Mississauga Dog Park</td>
-            <td>4.1/5</td>
-            <td class="table-btn-cell"><a href="object_page.php" class="btn btn-primary row-link">Find</a></td>
-          </tr>
-          <tr>
-            <td class="distance-cell">24.7 km</td>
-            <td>Brampton Dog Park</td>
-            <td>4.2/5</td>
-            <td class="table-btn-cell"><a href="object_page.php" class="btn btn-primary row-link">Find</a></td>
-          </tr>
-          <tr>
-            <td class="distance-cell">20.0 km</td>
-            <td>Hamilton Dog Park</td>
-            <td>4.3/5</td>
-            <td class="table-btn-cell"><a href="object_page.php" class="btn btn-primary row-link">Find</a></td>
-          </tr>
-          <tr>
-            <td class="distance-cell">42.8 km</td>
-            <td>Markham Dog Park</td>
-            <td>4.4/5</td>
-            <td class="table-btn-cell"><a href="object_page.php" class="btn btn-primary row-link">Find</a></td>
-          </tr>
-          <tr>
-            <td class="distance-cell">100.2 km</td>
-            <td>Orangeville Dog Park</td>
-            <td>4.5/5</td>
-            <td class="table-btn-cell"><a href="object_page.php" class="btn btn-primary row-link">Find</a></td>
-          </tr>
-          <tr>
-            <td class="distance-cell">85.9 km</td>
-            <td>Vaughan Dog Park</td>
-            <td>4.6/5</td>
-            <td class="table-btn-cell"><a href="object_page.php" class="btn btn-primary row-link">Find</a></td>
-          </tr>
+          <?php for ($index = 0; $index < count($locations); $index++) { ?>
+              <tr>
+                <?php
+                  if(isset($lat) && isset($lon)) {
+                    $distance = number_format($locations[$index]["distance"], 2);
+                  } else {
+                    $distance = 0.0;
+                  }
+                  
+                  $name = $locations[$index]["name"];
+                  $avgrating = number_format($locations[$index]["avgrating"], 2);
+                  $parkid = $locations[$index]["id"];
+                  $address = $locations[$index]["address"].", ".$locations[$index]["city"].", ".$locations[$index]["province"];
+                  $parkLat = $locations[$index]["latitude"];
+                  $parkLon = $locations[$index]["longitude"];
+
+                  if($distance > 0) {
+                    echo "<td class=\"distance-cell\">$distance</td>";
+                  } else {
+                    echo "<td class=\"distance-cell\">-</td>";
+                  }
+                  echo "<td>$name</td>";
+                  echo "<td>$avgrating/5</td>";
+                  echo "<td class=\"table-btn-cell\"><a id=\"$parkid\" name=\"$name\" latitude=\"$parkLat\" longitude=\"$parkLon\" address=\"$address\" distance=\"$distance\" href=\"object_page.php?parkid=$parkid\" class=\"btn btn-primary row-link\">Find</a></td>"
+                ?>
+              </tr>
+          <?php } ?>
         </tbody>
       </table>
     </div>
