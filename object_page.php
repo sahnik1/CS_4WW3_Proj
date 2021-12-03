@@ -121,7 +121,7 @@ if (isset($parkid)){
           $results["avg"] = $row["avgrating"];
           $results["reviews"] = array();
 
-          $sql = "SELECT name, title, description, rating from reviews WHERE parkid = :id";
+          $sql = "SELECT B.name as fullname, A.title as title, A.description as description, A.rating as rating from reviews A, users B WHERE parkid = :id AND A.userid = B.id";
           $stmt = $pdo->prepare($sql);
           if ($stmt){
             $stmt->bindParam(":id", $param_parkid, PDO::PARAM_INT);
@@ -251,7 +251,7 @@ if (isset($parkid)){
                     <div class="card park-reviews">
                       <div class="card-body review">
                         <?php echo "<h6 class=\"card-title\">".$results["reviews"][$index]["title"]."</h6>";
-                              echo "<p class=\"card-subtitle mb-2 text-muted\">".$results["reviews"][$index]["name"]."</p>";
+                              echo "<p class=\"card-subtitle mb-2 text-muted\">".$results["reviews"][$index]["fullname"]."</p>";
                               $rating_val = intval($results["reviews"][$index]["rating"]) ?>
                         <div class="rating-container">
                           <?php for ($star = 0;$star < $rating_val; $star++) {?>
