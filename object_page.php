@@ -99,7 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 // If ParkID set, carry out other necessary retrieval actions
 if (isset($parkid)){
   // SQL Template to retrieve park info and reviews
-  $sql = "SELECT name, puppies, description, address, city, province, avgrating from parks_info WHERE id = :id";
+  $sql = "SELECT name, puppies, description, address, city, province, avgrating, latitude, longitude from parks_info WHERE id = :id";
   $stmt = $pdo->prepare($sql);
   if ($stmt){
     // Bind the var to the statement
@@ -118,6 +118,8 @@ if (isset($parkid)){
           $results["city"] = $row["city"];
           $results["province"] = $row["province"];
           $results["avg"] = $row["avgrating"];
+          $results["lat"] = floatval($row["latitude"]);
+          $results["lon"] = floatval($row["longitude"]);
           $results["reviews"] = array();
 
           $sql = "SELECT B.name as fullname, A.title as title, A.description as description, A.rating as rating from reviews A, users B WHERE parkid = :id AND A.userid = B.id";
@@ -231,6 +233,39 @@ if (isset($parkid)){
                   <!-- Container to separate the map from the text and allow responsive resizing -->
                   <div class="map-container">
                     <div id="Park-Map" >
+
+                      <script>
+                        // Main instantiation for the Map, Park-Map is the div we target to place the map in
+                        var map = L.map( 'Park-Map', {
+                          // Center is the focal point of the map for the default view on load
+                          // These Long/Lat refer to central Oakville
+                          center: [<?php echo $results["lat"].", ".$results["lon"]?>],
+                          minZoom: 2,
+                          // This is a Cities level Zoom, enough to see neighboring cities
+                          zoom: 9
+                        });
+
+
+                        L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                          subdomains: ['a','b','c']
+                        }).addTo( map );
+
+                        // Custom Icon for 'Paw' print marker, credit goes to Google Earth (although I dont think they care)
+                        var pawIcon = L.icon({
+                          iconUrl: 'https://www.gstatic.com/earth/images/stockicons/190201-2016-animal-paw_4x.png',
+                          iconSize: [64, 64], // size of the icon
+                        });
+
+                        // Custom Marker, Shows the location of Oakville Dog Park (Imaginary),
+                        // shows popup when clicked which contains a link to the object page as well as the Park's Address
+
+                        var popup = "<?php echo "<center><a href='".htmlspecialchars($_SERVER["PHP_SELF"])."?parkid=".$parkid."'><b>".$results["name"]."</b></a></center><p>Address: ".$results["address"]."</p>"; ?>";
+
+                        L.marker([<?php echo $results["lat"].", ".$results["lon"]?>], {icon: pawIcon}).addTo(map).bindPopup(popup);
+
+                      </script>
+
                     </div>
                   </div>
               </div>
@@ -345,6 +380,5 @@ if (isset($parkid)){
       <?php include 'components/footer.inc' ?>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
-    <script src="./scripts/map_object_page.js"></script>
   </body>
 </html>
