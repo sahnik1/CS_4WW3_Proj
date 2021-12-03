@@ -35,7 +35,7 @@
         <p>Find Dog Parks Near You</p>
       </div>
       <!-- search form that when submitted redirects to the results_sample page -->
-      <form class="search-form" action="results_sample.php">
+      <form class="search-form" action="results_sample.php" method="GET">
         <input type="text" class="form-control search-input" placeholder="Enter location here" id="user-location-search">
         <select id="rating-search" class="form-control">
           <option selected>Rating</option>
