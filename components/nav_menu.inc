@@ -17,9 +17,6 @@
                 <a class="nav-link active" aria-current="page" href="index.php">Home</a>
               </li>
               <li class="nav-item flex-fill">
-                <a class="nav-link" href="results_sample.php">Results</a>
-              </li>
-              <li class="nav-item flex-fill">
                 <a class="nav-link" href="submit_object.php">Submit Park</a>
               </li>
               <li class="nav-item flex-fill">

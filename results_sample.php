@@ -11,6 +11,8 @@ $rating = NULL;
 $locations = array();
 $distance = 0;
 
+$general_error = "";
+
 if (isset($_GET['lat']) && isset($_GET['lon'])) {
   $lat = $_GET['lat'];
   $lon = $_GET['lon'];
@@ -49,10 +51,10 @@ if (isset($lat) && isset($lon)) {
     if ($stmt->rowCount() > 0) {
       $locations = $stmt->fetchAll();
     } else {
-      echo "No parks within a 200km radius";
+      $general_error = "No parks within a 200km radius";
     }
   } else {
-    echo "Unable to retrieve closest parks";
+    $general_error = "Unable to retrieve closest parks";
   }
 
   unset($stmt);
@@ -79,13 +81,13 @@ if (isset($lat) && isset($lon)) {
       if ($stmt->rowCount() > 0) {
         $locations = $stmt->fetchAll();
       } else {
-        echo "No parks that meet the rating requirement";
+        $general_error = "No parks that meet the rating requirement";
       }
     }
 
     unset($stmt);
   } else {
-  echo "Something Went Wrong";
+  $general_error = "Something Went Wrong";
 }
 
 ?>
@@ -123,6 +125,13 @@ if (isset($lat) && isset($lon)) {
     ?>
     <!-- Container for the map that is centered vertically in the page view, contains the user's location centered in the map view -->
     <!-- while highlighting all of the dog parks near the user using a custom indicator -->
+
+    <?php 
+    if (!empty($general_error)){
+      echo "<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\" style=\"margin: 1% auto; width: 50%; text-align: center;\">$general_error</div>";
+    }
+    ?>
+
     <div class="map-container text-center">
       <div id="Results-Map">
       </div>
