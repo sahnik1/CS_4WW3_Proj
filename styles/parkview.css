@@ -174,6 +174,7 @@ h3.login-page-title {
     .card.park-reviews {
         width: 30%;
         vertical-align: top;
+        margin-top: 1%;
     }
     
     /* Larger Container for showing Star Ratings on Desktop */
@@ -249,6 +250,10 @@ h3.login-page-title {
         background-color: #dfe6e9;
         margin: 5% auto 2% auto;
         border-radius: 10px;
+    }
+
+    .card.park-reviews {
+        width: 96%;
     }
 
     /* Different Margin of Tab Contents for mobile as mobile screen is small */
