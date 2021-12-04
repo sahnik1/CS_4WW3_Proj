@@ -58,7 +58,9 @@ if (isset($lat) && isset($lon)) {
   }
 
   unset($stmt);
+  //check for rating field instead if lat and lon are not set
 } elseif(isset($rating)) {
+    // query sorts parks by average rating in desc order
     $sql = "
       SELECT 
         id, 
@@ -159,6 +161,7 @@ if (isset($lat) && isset($lon)) {
                     $distance = 0.0;
                   }
                   
+                  // extract information from array containing each row from the query table
                   $name = $locations[$index]["name"];
                   $avgrating = number_format($locations[$index]["avgrating"], 2);
                   $parkid = $locations[$index]["id"];
@@ -166,6 +169,7 @@ if (isset($lat) && isset($lon)) {
                   $parkLat = $locations[$index]["latitude"];
                   $parkLon = $locations[$index]["longitude"];
 
+                  // only display a distance from the user if it has a value in place
                   if($distance > 0) {
                     echo "<td class=\"distance-cell\">$distance</td>";
                   } else {
@@ -173,6 +177,7 @@ if (isset($lat) && isset($lon)) {
                   }
                   echo "<td>$name</td>";
                   echo "<td>$avgrating/5</td>";
+                  // a tag is used for js to be able to easily access park specific details
                   echo "<td class=\"table-btn-cell\"><a id=\"$parkid\" name=\"$name\" latitude=\"$parkLat\" longitude=\"$parkLon\" address=\"$address\" distance=\"$distance\" href=\"object_page.php?parkid=$parkid\" class=\"btn btn-primary row-link\">Find</a></td>"
                 ?>
               </tr>
