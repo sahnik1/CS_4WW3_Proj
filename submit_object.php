@@ -33,9 +33,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
   $city = trim($_POST["city"]);
   $prov = trim($_POST["province"]);
 
-  if (!empty($park_name) && !empty($puppies) && !empty($descr) && !empty($addr) && !empty($city) && !empty($prov) && !empty($error_msg)){
+  if (!empty($park_name) && !empty($puppies) && !empty($descr) && !empty($addr) && !empty($city) && !empty($prov) && empty($error_msg)){
     // SQL Template to insert new user
-    $sql = "INSERT INTO parks_info (name, puppies, description, address, city, province, avgrating) VALUES (:park, :puppy, :descr, :addr, :city, :prov, :rating)";
+    $sql = "INSERT INTO parks_info (name, puppies, description, address, city, province, avgrating, latitude, longitude) VALUES (:park, :puppy, :descr, :addr, :city, :prov, :rating, :lat, :lon)";
     $stmt = $pdo->prepare($sql);
     if ($stmt) {
       $stmt->bindParam(":park", $param_park);
@@ -59,6 +59,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
       $stmt->bindParam(":prov", $param_prov);
       $param_prov = $prov;
+
+      $stmt->bindParam(":lat", $param_lat);
+      $param_lat = 0;
+
+      $stmt->bindParam(":lon", $param_lon);
+      $param_lon = 0;
 
       // Default rating assigned to a park is zero
       $stmt->bindParam(":rating", $param_rating);
@@ -120,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         <!-- Signup Page Form Element to record user's park submission -->
         <?php if (isset($_SESSION["signedin"]) && $_SESSION["signedin"] === true) { ?>
         <form class="signup-form" id="submit-park-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
-          <!-- Container to allow for different view on desktop vs mobile -->
+	  <!-- Container to allow for different view on desktop vs mobile -->
           <div class="form-row multi-input-row">
             <!-- Text HTML5 Field for Park Name -->
             <div class="form-group form-field">
